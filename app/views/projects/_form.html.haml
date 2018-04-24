@@ -10,13 +10,22 @@
     = f.label :billable
     = f.input :billable, as: :switch, label: false
     %table{id: "rates_table"}
-      - @users.each do |user|
+      %tbody
+      - if @project.persisted?
         = f.simple_fields_for :rates do |r|
-          %tbody
+          %tr
+            %td= r.object.user.first_name
+            %td= r.input :user_rate, as: :float, input_html: { value: r.object.user_rate }
+            = r.input :user_id, as: :integer, as: :hidden, input_html: { value: r.object.user_id }
+            = r.input :id, as: :integer, as: :hidden, input_html: { value: r.object.id }
+      - else
+        - @users.each do |user|
+          = f.simple_fields_for :rates do |r|
             %tr
               %td= user.first_name
               %td= r.input :user_rate, as: :float, input_html: { value: user.rate }
               = r.input :user_id, as: :integer, as: :hidden, input_html: { value: user.id }
+    %br/
     = f.button :submit, data: { disable_with: t("loader.saving") }
 
     - if !@project.audits.empty?

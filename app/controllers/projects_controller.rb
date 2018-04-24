@@ -14,6 +14,7 @@ class ProjectsController < ApplicationController
 
   def edit
     resource
+    @project.rates.build if @project.rates.empty?
   end
 
   def new
