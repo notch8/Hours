@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180424060346) do
+ActiveRecord::Schema.define(version: 20180424230134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,7 +134,7 @@ ActiveRecord::Schema.define(version: 20180424060346) do
     t.integer  "project_id"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
-    t.decimal  "user_rate",  precision: 8, scale: 2
+    t.decimal  "amouht",     precision: 8, scale: 2
   end
 
   add_index "rates", ["project_id"], name: "index_rates_on_project_id", using: :btree
@@ -188,7 +188,7 @@ ActiveRecord::Schema.define(version: 20180424060346) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "invitations_count",                              default: 0
-    t.decimal  "rate",                   precision: 8, scale: 2
+    t.decimal  "base_amount",            precision: 8, scale: 2
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

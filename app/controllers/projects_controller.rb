@@ -19,8 +19,9 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
-    @users = User.all
-    @project.rates.build
+    User.find_each do |user|
+      @project.rates.build(user: user, user_rate: user.rate)
+    end
   end
 
   def create
