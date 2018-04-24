@@ -100,8 +100,8 @@ pt-BR:
   boolean:
     "true": "sim"
     "false": "não"
-  budget_hours_html: "<strong>%{number_to_currency(budget_left.to_i)}</strong> de <strong>%{budget}</strong> horas restantes no orçamento"
-  budget_hours_html: "<strong>%{number_to_currency(budget_left.to_i)}</strong> de <strong>%{budget}</strong> restantes no orçamento"
+  budget_hours_html: "<strong>%{budget_left}</strong> de <strong>%{budget}</strong> horas restantes no orçamento"
+  budget_hours_html: "<strong>%{budget_left}</strong> de <strong>%{budget}</strong> restantes no orçamento"
   category:
     edit: editar
     remaining: Outros
