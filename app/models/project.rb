@@ -21,7 +21,6 @@ class Project < ActiveRecord::Base
 
   validates :name, presence: true,
                    uniqueness: { case_sensitive: false }
-  validates :use_dollars, presence: true, if:  -> {Hours.use_dollars?}
   validates_with ClientBillableValidator
   has_many :hours
   has_many :mileages
@@ -30,6 +29,7 @@ class Project < ActiveRecord::Base
   has_many :categories, -> { uniq }, through: :hours
   has_many :tags, -> { uniq }, through: :hours
   belongs_to :client, touch: true
+  accepts_nested_attributes_for :rates
 
   scope :by_last_updated, -> { order("projects.updated_at DESC") }
   scope :by_name, -> { order("lower(name)") }

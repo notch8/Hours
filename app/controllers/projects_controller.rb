@@ -18,6 +18,8 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
+    @users = User.all
+    @project.rates.build
   end
 
   def create
@@ -49,6 +51,6 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).
-      permit(:name, :billable, :client_id, :archived, :description, :budget, :use_dollars)
+      permit(:name, :billable, :client_id, :archived, :description, :budget, :use_dollars, rates_attributes: [:id, :user_id, :project_id, :user_rate, :_destroy])
   end
 end
