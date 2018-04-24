@@ -19,7 +19,7 @@
           %tr
             %td= r.object.user.first_name
             %td
-              = r.input :user_rate, as: :float, label: false
+              = r.input :amount, as: :float, label: false
               = r.input :user_id, as: :integer, as: :hidden
     %br/
     = f.button :submit, data: { disable_with: t("loader.saving") }
