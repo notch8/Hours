@@ -101,7 +101,7 @@ pt-BR:
     "true": "sim"
     "false": "não"
   budget_hours_html: "<strong>%{budget_left}</strong> de <strong>%{budget}</strong> horas restantes no orçamento"
-  budget_hours_html: "<strong>%{budget_left}</strong> de <strong>%{budget}</strong> restantes no orçamento"
+  budget_dollars_html: "<strong>%{budget_left}</strong> de <strong>%{budget}</strong> restantes no orçamento"
   category:
     edit: editar
     remaining: Outros
