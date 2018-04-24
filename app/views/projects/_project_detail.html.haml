@@ -13,7 +13,7 @@
       - if project.budget
         .project-budget
           - if project.use_dollars
-            = t(:budget_dollars_html, budget_left: number_to_currency(project.budget_status), budget: number_to_currency(project.budget))
+            = t(:budget_dollars_html, budget_left: number_to_currency(project.dollar_budget_status), budget: number_to_currency(project.budget))
           - else
             = t(:budget_hours_html, budget_left: project.budget_status, budget: project.budget)
       %p= markdown(project.description) if project.description

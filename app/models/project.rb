@@ -57,6 +57,16 @@ class Project < ActiveRecord::Base
       mileages.exists?(billed: false)
   end
 
+  def dollar_budget_status
+    total = []
+    hours.each do |h|
+      rates.each do |r|
+        total << h.value * r.user_rate if h.user_id == r.user_id
+      end
+    end
+    budget - total.sum
+  end
+
   private
 
   def slug_source
