@@ -81,7 +81,8 @@ pl:
   boolean:
     "true": "tak"
     "false": "nie"
-  budget_html: "<strong>%{budget_left}</strong> z <strong>%{budget}</strong> godzin pozostałych"
+  budget_hours_html: "<strong>%{budget_left}</strong> z <strong>%{budget}</strong> godzin pozostałych"
+  budget_dollars_html: "<strong>%{budget_left}</strong> z <strong>%{budget}</strong> budżetu pozostałych"
   category:
     edit: edytuj
     remaining: Inne
