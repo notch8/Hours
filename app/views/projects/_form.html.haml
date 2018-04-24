@@ -4,14 +4,14 @@
     = f.input :name, required: true
     = f.input :description, as: :text, input_html: { rows: 5 }
     = f.label :use_dollars, "Budget Type"
-    = f.input :use_dollars, collection: [["Dollars", true], ["Hours", false]], label: false, required: true if Hours.use_dollars?
+    = f.input :use_dollars, collection: [["Dollars", true], ["Hours", false]], label: false, required: true, input_html: { :id => 'use_dollars' } if Hours.use_dollars?
     = f.input :budget, as: :integer
     = f.association :client, required: false, collection: Client.by_name, placeholder: t("project.form.client"), include_blank: t("project.form.no_client")
     = f.label :billable
     = f.input :billable, as: :switch, label: false
-    - @users.each do |user|
-      = f.simple_fields_for :rates do |r|
-        %table
+    %table{id: "rates_table"}
+      - @users.each do |user|
+        = f.simple_fields_for :rates do |r|
           %tbody
             %tr
               %td= user.first_name
