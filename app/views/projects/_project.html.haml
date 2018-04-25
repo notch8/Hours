@@ -19,9 +19,12 @@
             - else
               = t(:budget_hours_html, budget_left: project.budget_status, budget: project.budget)
             - if project.use_dollars
-              .amount_bar
-                .amount_graph
-                  = project_presenter.show_budget_bar
+              .activities-overview
+                %ol.activities
+                  = project_presenter.show_budget
+                .amount_bar
+                  .amount_graph
+                    = project_presenter.show_budget_bar
         %hr/
         .activities-overview
           %ol.activities

@@ -19,6 +19,12 @@ class ProjectPresenter
                     locals: { project: @project }
   end
 
+  def show_budget
+    template.render partial: "projects/budget",
+                    as: :project,
+                    locals: { project: @project, percent_used: percent_used, background_color: background_color }
+  end
+
   def show_budget_bar
     template.render partial: "projects/budget_bar",
                     as: :project,
@@ -43,12 +49,6 @@ class ProjectPresenter
 
   def background_color
     percent_used < 80 ? "#428bca" : "#d9534f"
-  end
-
-  def budget_collection
-    collection = []
-    collection << amount_used
-    collection << amount_left
   end
 
   def categories_with_remainder
