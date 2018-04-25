@@ -61,7 +61,7 @@ class Project < ActiveRecord::Base
     total = []
     hours.each do |h|
       rates.each do |r|
-        total << h.value * r.user_rate if h.user_id == r.user_id
+        total << (h.value * r.user_rate).round(2) if h.user_id == r.user_id
       end
     end
     budget - total.sum
