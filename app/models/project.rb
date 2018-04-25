@@ -58,13 +58,23 @@ class Project < ActiveRecord::Base
   end
 
   def dollar_budget_status
-    total = []
+    amount = []
     hours.each do |h|
       rates.each do |r|
-        total << h.value * r.user_rate if h.user_id == r.user_id
+        amount << h.value * r.amount if h.user_id == r.user_id && r.amount
       end
     end
-    budget - total.sum
+    amount.any? ? budget - amount.sum : budget
+  end
+
+  def amount_per_entry_user(hour)
+    if use_dollars
+      amount = 0
+      rates.each do |r|
+        amount = hour.value * r.amount if hour.user_id == r.user_id
+      end
+      amount
+    end
   end
 
   private
