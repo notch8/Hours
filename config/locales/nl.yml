@@ -103,7 +103,8 @@ nl:
   boolean:
     "true": "ja"
     "false": "nee"
-  budget_html: "<strong>%{budget_left}</strong> van <strong>%{budget}</strong> uren van het budget over"
+  budget_hours_html: "<strong>%{budget_left}</strong> van <strong>%{budget}</strong> uren van het budget over"
+  budget_dollars_html: "<strong>%{budget_left}</strong> of <strong>%{budget}</strong> van het budget over"
   category:
     edit: edit
     remaining: Other
@@ -366,4 +367,4 @@ nl:
     archived: Gearchiveerde projecten
     not_archived: Actieve projecten
   pages:
-    prices: Prijzen  
+    prices: Prijzen

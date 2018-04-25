@@ -24,10 +24,12 @@ class Project < ActiveRecord::Base
   validates_with ClientBillableValidator
   has_many :hours
   has_many :mileages
+  has_many :rates
   has_many :users, -> { uniq }, through: :hours
   has_many :categories, -> { uniq }, through: :hours
   has_many :tags, -> { uniq }, through: :hours
   belongs_to :client, touch: true
+  accepts_nested_attributes_for :rates, reject_if: :all_blank
 
   scope :by_last_updated, -> { order("projects.updated_at DESC") }
   scope :by_name, -> { order("lower(name)") }
@@ -53,6 +55,16 @@ class Project < ActiveRecord::Base
   def has_billable_entries?
     hours.exists?(billed: false) ||
       mileages.exists?(billed: false)
+  end
+
+  def dollar_budget_status
+    total = []
+    hours.each do |h|
+      rates.each do |r|
+        total << (h.value * r.user_rate).round(2) if h.user_id == r.user_id
+      end
+    end
+    budget - total.sum
   end
 
   private

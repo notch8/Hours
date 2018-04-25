@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224115957) do
+ActiveRecord::Schema.define(version: 20180424060346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,11 +122,23 @@ ActiveRecord::Schema.define(version: 20150224115957) do
     t.integer  "client_id"
     t.boolean  "archived",    default: false, null: false
     t.text     "description"
+    t.boolean  "use_dollars", default: false
   end
 
   add_index "projects", ["archived"], name: "index_projects_on_archived", using: :btree
   add_index "projects", ["billable"], name: "index_projects_on_billable", using: :btree
   add_index "projects", ["slug"], name: "index_projects_on_slug", using: :btree
+
+  create_table "rates", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.decimal  "user_rate",  precision: 8, scale: 2
+  end
+
+  add_index "rates", ["project_id"], name: "index_rates_on_project_id", using: :btree
+  add_index "rates", ["user_id"], name: "index_rates_on_user_id", using: :btree
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -148,14 +160,14 @@ ActiveRecord::Schema.define(version: 20150224115957) do
   add_index "tags", ["slug"], name: "index_tags_on_slug", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "first_name",             default: "", null: false
-    t.string   "last_name",              default: "", null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: ""
+    t.string   "first_name",                                     default: "", null: false
+    t.string   "last_name",                                      default: "", null: false
+    t.string   "email",                                          default: "", null: false
+    t.string   "encrypted_password",                             default: ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                                  default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -175,7 +187,8 @@ ActiveRecord::Schema.define(version: 20150224115957) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.integer  "invitations_count",      default: 0
+    t.integer  "invitations_count",                              default: 0
+    t.decimal  "rate",                   precision: 8, scale: 2
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -185,4 +198,6 @@ ActiveRecord::Schema.define(version: 20150224115957) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", using: :btree
 
+  add_foreign_key "rates", "projects"
+  add_foreign_key "rates", "users"
 end
