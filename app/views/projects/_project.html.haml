@@ -18,10 +18,10 @@
               = t(:budget_dollars_html, budget_left: number_to_currency(project.dollar_budget_status), budget: number_to_currency(project.budget))
             - else
               = t(:budget_hours_html, budget_left: project.budget_status, budget: project.budget)
-        - if project.use_dollars
-          .amount_bar
-            .amount_graph
-              = project_presenter.show_budget_bar
+            - if project.use_dollars
+              .amount_bar
+                .amount_graph
+                  = project_presenter.show_budget_bar
         %hr/
         .activities-overview
           %ol.activities
