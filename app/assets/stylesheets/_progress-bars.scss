@@ -39,6 +39,15 @@
     display:block;
   }
 
+  .amount_bar {
+    position: relative;
+    width: 40%;
+    display:inline-block;
+    border-style: groove;
+    float: right;
+    margin-top: 8px;
+  }
+
   hr {
     margin: .5em 0;
   }
@@ -54,6 +63,16 @@
   width: 100%;
   height: auto;
   line-height: 12px;
+  white-space: nowrap;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  overflow: hidden;
+}
+
+.amount_graph {
+  width: 100%;
+  height: auto;
+  line-height: 6px;
   white-space: nowrap;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
@@ -105,4 +124,3 @@
     }
   }
 }
-

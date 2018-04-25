@@ -76,10 +76,11 @@
   }
 
   .project-title {
-    display: inline-block;
+    display: block;
   }
 
   .project-budget {
+    display: inline-block;
   }
 
   .projects-overview {
@@ -174,4 +175,3 @@ header {
   margin: 10px 0px;
   border-radius: 8px;
 }
-
