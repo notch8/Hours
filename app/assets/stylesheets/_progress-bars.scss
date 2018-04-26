@@ -39,6 +39,14 @@
     display:block;
   }
 
+  .amount_bar {
+    background-color: LightGrey;
+    position: relative;
+    width: 100%;
+    display:inline-block;
+    float: right;
+  }
+
   hr {
     margin: .5em 0;
   }
@@ -54,6 +62,16 @@
   width: 100%;
   height: auto;
   line-height: 12px;
+  white-space: nowrap;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  overflow: hidden;
+}
+
+.amount_graph {
+  width: 100%;
+  height: auto;
+  line-height: 6px;
   white-space: nowrap;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
@@ -105,4 +123,3 @@
     }
   }
 }
-
