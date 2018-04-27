@@ -102,7 +102,7 @@ en:
   confirm: Are you sure?
   date:
     formats:
-      default: "%d/%m/%Y"
+      default: "%Y-%m-%d"
   email:
     confirmation:
       confirm_password: Confirm my account
