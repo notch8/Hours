@@ -1,17 +1,15 @@
-FROM ruby:2.4.2
+FROM registry.gitlab.com/notch8/hours/base:latest
 
-RUN apt-get update -yqq \
-  && apt-get install -yqq --no-install-recommends \
-    postgresql-client \
-    nodejs \
-    qt5-default \
-    libqt5webkit5-dev \
-  && apt-get -q clean \
-  && rm -rf /var/lib/apt/lists
+ADD https://time.is/just build-time
+ADD ops/webapp.conf /etc/nginx/sites-enabled/webapp.conf
+ADD ops/env.conf /etc/nginx/main.d/env.conf
+ADD . $APP_HOME
+RUN chown -R app $APP_HOME
 
-WORKDIR /usr/src/app
-COPY Gemfile* ./
-RUN bundle install
-COPY . .
+RUN cd /home/app/webapp && \
+    (/sbin/setuser app bundle check || /sbin/setuser app bundle install) && \
+    /sbin/setuser app bundle exec rake assets:precompile DB_ADAPTER=nulldb && \
+    chown -R app $APP_HOME && \
+    rm -f /etc/service/nginx/down
 
-CMD bundle exec unicorn -c ./config/unicorn.rb
+CMD ["/sbin/my_init"]
