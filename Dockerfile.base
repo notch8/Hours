@@ -5,14 +5,15 @@ RUN echo 'Downloading Packages' && \
     apt-get update -qq && \
     apt-get install -y \
       build-essential \
-      nodejs \
-      pv \
-      tzdata \
-      libsasl2-dev \
+      imagemagick \
       libpq-dev \
-      postgresql-client \
-      qt5-default \
       libqt5webkit5-dev \
+      libsasl2-dev \
+      nodejs \
+      postgresql-client \
+      pv \
+      qt5-default \
+      tzdata \
       && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
