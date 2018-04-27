@@ -27,8 +27,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_subdomain, :current_user_owner?
 
   def current_subdomain
-    @current_subdomain ||=
-      current_account.subdomain unless Hours.single_tenant_mode?
+    @current_subdomain ||= 'hours'
+#      current_account.subdomain unless Hours.single_tenant_mode?
   end
 
   def current_user_owner?

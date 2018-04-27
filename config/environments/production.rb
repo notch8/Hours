@@ -74,7 +74,7 @@ Hours::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = SMTP_SETTINGS
-  config.action_mailer.default_url_options = { host: SMTP_SETTINGS[:domain] }
+  config.action_mailer.default_url_options = { host: ENV['SITE_URI'] }
 
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
@@ -92,7 +92,7 @@ Hours::Application.configure do
   config.paperclip_defaults = {
     storage: :s3,
     s3_protocol: :https,
-    s3_region: "s3-eu-west-1",
+    s3_region: "s3-us-west-2",
     s3_credentials: {
       bucket: ENV["S3_BUCKET_NAME"],
       access_key_id: ENV["AWS_ACCESS_KEY_ID"],
