@@ -9,18 +9,19 @@
     = f.association :client, required: false, collection: Client.by_name, placeholder: t("project.form.client"), include_blank: t("project.form.no_client")
     = f.label :billable
     = f.input :billable, as: :switch, label: false
-    %table{id: "rates_table"}
-      %thead
-        %tr
-          %th User
-          %th Rate
-      %tbody
-        = f.simple_fields_for :rates do |r|
+    - if @project.use_dollars
+      %table{id: "rates_table"}
+        %thead
           %tr
-            %td= r.object.user.first_name
-            %td
-              = r.input :amount, as: :float, label: false
-              = r.input :user_id, as: :integer, as: :hidden
+            %th User
+            %th Rate
+        %tbody
+          = f.simple_fields_for :rates do |r|
+            %tr
+              %td= r.object.user.first_name
+              %td
+                = r.input :amount, as: :float, label: false
+                = r.hidden :user_id, as: :integer
     %br/
     = f.button :submit, data: { disable_with: t("loader.saving") }
 

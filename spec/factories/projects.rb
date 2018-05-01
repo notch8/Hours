@@ -3,6 +3,7 @@ FactoryGirl.define do
     sequence(:name) { |n| "project#{n}" }
     billable false
     archived false
+    use_dollars false
 
     factory :project_with_hours do
       after(:create) do |project, _evaluator|
