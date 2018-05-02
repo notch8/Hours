@@ -5,6 +5,11 @@ FactoryGirl.define do
     archived false
     use_dollars false
 
+    factory :project_with_dollars do
+      use_dollars true
+      budget 1000
+    end
+
     factory :project_with_hours do
       after(:create) do |project, _evaluator|
         create_list(:hour, 2, project: project)

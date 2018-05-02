@@ -21,7 +21,7 @@
               %td= r.object.user.first_name
               %td
                 = r.input :amount, as: :float, label: false
-                = r.hidden :user_id, as: :integer
+                = r.hidden_field :user_id, as: :integer
     %br/
     = f.button :submit, data: { disable_with: t("loader.saving") }
 
