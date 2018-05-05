@@ -1,7 +1,5 @@
 source "https://rubygems.org"
 
-ruby "2.4.2"
-
 gem "airbrake"
 gem "bourbon"
 gem "coffee-rails"
