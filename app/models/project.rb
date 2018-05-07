@@ -64,14 +64,14 @@ class Project < ActiveRecord::Base
         amount << (h.value * r.amount).round(2) if h.user_id == r.user_id && r.amount
       end
     end
-    amount.any? ? budget - amount.sum : budget
+    amount.any? ? budget.to_f - amount.sum : budget
   end
 
   def amount_per_entry_user(hour)
     if use_dollars
       amount = 0
       rates.each do |r|
-        amount = hour.value * r.amount if hour.user_id == r.user_id
+        amount = (hour.value * r.amount).round(2) if hour.user_id == r.user_id
       end
       amount
     end
