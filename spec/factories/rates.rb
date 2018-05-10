@@ -2,7 +2,8 @@
 
 FactoryGirl.define do
   factory :rate do
-    user nil
+    user
     project nil
+    amount 100.00
   end
 end
