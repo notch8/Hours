@@ -95,6 +95,14 @@ Usage:
 To use the single tenant mode, you can add SINGLE_TENANT_MODE to your enviroment variables with the value `true`. On development you can set this in your .env with `SINGLE_TENANT_MODE=true` and restart foreman. On heroku it's under the `Config Variables`.
 The first user in single tenant mode can be created by a rake task `rake create_user`. We'll ask you for your credentials.
 
+Dollar Based Budgeting: Allow projects to have either hours based or dollar based budgets
+
+Usage:
+
+To use dollar based budgets, you can add USE_DOLLARS to your environment variables with the value `true`. On development you can set this in your .env with `USE_DOLLARS=true` and restart foreman. On heroku it's under the `Config Variables`.
+Once that is done, you will see hours or dollars next to budget in the project new and edit views and rate fields next to users both on an individual and per project level.
+
+
 Guidelines
 ----------
 - Pull requests are welcome! If you aren't able to contribute code please open an issue on Github.
