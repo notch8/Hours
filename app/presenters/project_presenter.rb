@@ -38,7 +38,7 @@ class ProjectPresenter
   end
 
   def percent_used
-    return 0 if @project.budget.blank?
+    return 0 if @project.budget.blank? || @project.budget.zero?
     (amount_used.to_f / @project.budget.to_f * 100).round
   end
 
