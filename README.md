@@ -45,43 +45,26 @@ System Dependencies
 Getting Started
 ---------------
 
-This repository comes equipped with a self-setup script:
+Install Docker.app
 
-    % ./bin/setup
+Make sure PostgreSQL is also installed on your computer 
 
-After setting up, you can run the application using [foreman]:
+$git branch pull origin Notch8_deploy
 
-    % foreman start
+$gem install stack_car 
 
-Since we're using subdomains to point to accounts, you can't run the app on localhost.
-If you have [pow] set up, it will be automatically configured by the setup script, otherwise
-you need to point apache/nginx to the port foreman is running the app on (7000 by default). With pow the app will run on http://hours.dev
+$gem install dotenv 
 
-In order to activate caching in development you can add `CACHE_DEVELOPMENT="anything"` to your `.env`. Make sure to run `$ memcached` when you do need this.
+Ensure that there is .env file, if not reach out to a team member for the copy of the file
 
-[foreman]: http://ddollar.github.io/foreman/
-[pow]: http://pow.cx
+$sc up 
 
-Getting Started with Docker
----------------------------
+Create a database.yml file. Then copy and paste the content from the database.yml.example into the database.yml file
 
-This repository comes equipped to be run within Docker, but this requires a few more local dependencies. For instructions on installing and getting started with Docker go [here](https://www.docker.com/products/docker). You'll also need [`docker-compose`](https://docs.docker.com/compose/overview/), but it will be installed for you through Docker for Mac or Windows.
+$sc be rake db:create db:schema:load db:migrate db:seed
 
-This repository comes equipped with a self-setup script for using Docker:
+After successful seed migration, go to http://testinstance.lvh.me:3000
 
-    % ./bin/docker_setup
-
-On first boot you'll also need to create your database, for that use:
-
-    % docker-compose run --rm app rake db:create db:migrate
-
-After setting up, you can run the application and dependencies using [docker-compose]:
-
-    % docker-compose up -d
-
-If your Docker host is running on `localhost` then you should be able to use pow, otherwise you'll need to connect to it via:
-
-    http://DOCKER_IP:7000
 
 Feature Flags
 -------------
