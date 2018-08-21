@@ -5,3 +5,19 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# Create a new account object
+# switch tenants
+# Create a new user object for that account
+# confirm that user
+if Account.where(subdomain: 'testinstance').count < 1
+    @signup = Signup.new(first_name: "Test", last_name: 'Tester', email: 'test@example.com', password: 'testing123', password_confirmation: 'testing123', subdomain: 'testinstance')
+    if @signup.valid?
+      Apartment::Tenant.create(@signup.subdomain)
+      Apartment::Tenant.switch(@signup.subdomain)
+      @signup.save
+    end
+
+    u = User.where(email: 'test@example.com').first
+    u.confirm!
+end
