@@ -1,6 +1,6 @@
 # Docker development setup
 
-1) Install Docker.app 
+1) Install Docker.app
 
 2) gem install stack_car
 
@@ -21,7 +21,7 @@ sc release {staging | production} # creates and pushes the correct tags
 sc deploy {staging | production} # deployes those tags to the server
 ```
 
-Releaese and Deployment are handled by the gitlab ci by default. See ops/deploy-app to deploy from locally, but note all Rancher install pull the currently tagged registry image
+Release and Deployment are handled by the gitlab ci by default. See ops/deploy-app to deploy from locally, but note all Rancher install pull the currently tagged registry image
 
 Hours
 =====
@@ -67,46 +67,28 @@ System Dependencies
 - qmake (`brew install qt`) or read extensive instructions [here](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit)
 - memcached (`brew install memcached`, an older version ships with OSX)(optional)
 
-Getting Started
----------------
+Getting Set Up
+--------------
+1) Install Docker.app
 
-This repository comes equipped with a self-setup script:
+  Also, make sure PostgreSQL is installed on your computer
 
-    % ./bin/setup
+2) gem install stack_car
 
-After setting up, you can run the application using [foreman]:
+3) gem install dotenv
 
-    % foreman start
+4) You will need to be in the notch8_deploy branch
 
-Since we're using subdomains to point to accounts, you can't run the app on localhost.
-If you have [pow] set up, it will be automatically configured by the setup script, otherwise
-you need to point apache/nginx to the port foreman is running the app on (7000 by default). With pow the app will run on http://hours.dev
+  git branch pull origin notch8_deploy
 
-In order to activate caching in development you can add `CACHE_DEVELOPMENT="anything"` to your `.env`. Make sure to run `$ memcached` when you do need this.
+5) Ensure that there is a .env file, if not reach out to a team member for a copy of the file
 
-[foreman]: http://ddollar.github.io/foreman/
-[pow]: http://pow.cx
+6) create a database.yml file. Then copy and paste the content from database.yml.example into database.yml file
 
-Getting Started with Docker
----------------------------
+7) sc be rake db:create db:schema:load db:migrate db:seed
 
-This repository comes equipped to be run within Docker, but this requires a few more local dependencies. For instructions on installing and getting started with Docker go [here](https://www.docker.com/products/docker). You'll also need [`docker-compose`](https://docs.docker.com/compose/overview/), but it will be installed for you through Docker for Mac or Windows.
+8) After successful seed migration, go to http://testinstance.lvh.me:3000 in your browser
 
-This repository comes equipped with a self-setup script for using Docker:
-
-    % ./bin/docker_setup
-
-On first boot you'll also need to create your database, for that use:
-
-    % docker-compose run --rm app rake db:create db:migrate
-
-After setting up, you can run the application and dependencies using [docker-compose]:
-
-    % docker-compose up -d
-
-If your Docker host is running on `localhost` then you should be able to use pow, otherwise you'll need to connect to it via:
-
-    http://DOCKER_IP:7000
 
 Feature Flags
 -------------
