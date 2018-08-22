@@ -1,18 +1,24 @@
-# Docker development setup
-
+Getting Set Up
+--------------
 1) Install Docker.app
+
+  -Also, make sure PostgreSQL is installed on your computer
 
 2) gem install stack_car
 
-3) We recommend committing .env to your repo with good defaults. .env.development, .env.production etc can be used for local overrides and should not be in the repo.
+3) gem install dotenv
 
-4) sc up
+4) You will need to be in the notch8_deploy branch
 
-``` bash
-gem install stack_car
-sc up
+  -git pull origin notch8_deploy
 
-```
+5) Ensure that there is a .env file, if not reach out to a team member for a copy of the file
+
+6) create a database.yml file. Then copy and paste the content from database.yml.example into database.yml file
+
+7) sc be rake db:create db:schema:load db:migrate db:seed
+
+8) After successful seed migration, go to http://testinstance.lvh.me:3000 in your browser
 
 # Deploy a new release
 
@@ -66,29 +72,6 @@ System Dependencies
 - PostgreSQL
 - qmake (`brew install qt`) or read extensive instructions [here](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit)
 - memcached (`brew install memcached`, an older version ships with OSX)(optional)
-
-Getting Set Up
---------------
-1) Install Docker.app
-
-  Also, make sure PostgreSQL is installed on your computer
-
-2) gem install stack_car
-
-3) gem install dotenv
-
-4) You will need to be in the notch8_deploy branch
-
-  git branch pull origin notch8_deploy
-
-5) Ensure that there is a .env file, if not reach out to a team member for a copy of the file
-
-6) create a database.yml file. Then copy and paste the content from database.yml.example into database.yml file
-
-7) sc be rake db:create db:schema:load db:migrate db:seed
-
-8) After successful seed migration, go to http://testinstance.lvh.me:3000 in your browser
-
 
 Feature Flags
 -------------
