@@ -8,7 +8,7 @@
     = f.input :budget, as: :integer
     = f.association :client, required: false, collection: Client.by_name, placeholder: t("project.form.client"), include_blank: t("project.form.no_client")
     = f.label :billable
-    = f.input :billable, as: :switch, label: false
+    = f.input :billable, as: :switch, label: false, input_html: { checked: true }
     %table{id: "rates_table"}
       %thead
         %tr
