@@ -1,0 +1,7 @@
+$('#hour_project_id').on('change', function(e) {
+    var project_id = $('#hour_project_id').val()
+    $.ajax({
+        url: '/projects/'+project_id+'/selected.js',
+        method: 'GET'
+    })
+})

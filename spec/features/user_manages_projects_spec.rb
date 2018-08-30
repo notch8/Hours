@@ -39,7 +39,7 @@ feature "User manages projects" do
     expect(Project.last.billable).to be(true)
   end
 
-  scenario "edit a none billable project to a billable project" do
+  scenario "edit a billable project to a non billable project" do
     client = create(:client)
     project = create(:project)
     visit edit_project_url(project, subdomain: subdomain)

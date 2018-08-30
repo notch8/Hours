@@ -56,3 +56,11 @@ class ProjectsController < ApplicationController
       permit(:name, :billable, :client_id, :archived, :description, :budget, :use_dollars, rates_attributes: [:id, :user_id, :project_id, :amount, :_destroy])
   end
 end
+
+# def single_project
+#    p = <look up project here>
+#    @projects = [p]
+#    respond_to do |format|
+#     format.js { render layout: false }
+#    end
+# end
