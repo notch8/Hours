@@ -41,6 +41,13 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def selected
+      @project = Project.find(params[:id])
+      respond_to do |format|
+          format.js
+      end
+  end
+
   private
 
   def entry_type
