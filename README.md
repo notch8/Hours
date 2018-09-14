@@ -2,8 +2,6 @@ Getting Set Up
 --------------
 1) Install Docker.app
 
-  -Also, make sure PostgreSQL is installed on your computer
-
 2) `gem install stack_car`
 
 3) `gem install dotenv`
@@ -18,7 +16,7 @@ Getting Set Up
 
 7) `sc up`
 
-8) After running the command `sc up` open a new terminal and run command `sc be rake db:create db:schema:load db:migrate db:seed` while web is running in the terminal with the sc up command.
+8) After running the command `sc up` open a new terminal and run command `sc be rake db:create db:schema:load db:migrate db:seed` while web is running in the terminal with the `sc up` command.
 
 9) After successful seed migration, go to http://testinstance.lvh.me:3000 in your browser. Once there, sign in with email: test@example.com and password: testing123
 
