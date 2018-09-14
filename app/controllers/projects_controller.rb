@@ -43,6 +43,7 @@ class ProjectsController < ApplicationController
 
   def selected
       @project = Project.find(params[:id])
+      
       respond_to do |format|
           format.js
       end
