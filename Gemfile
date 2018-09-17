@@ -59,6 +59,7 @@ group :development do
   gem "pry"
   gem "spring"
   gem "spring-commands-rspec"
+  gem "web-console"
 end
 
 group :development, :test do
@@ -72,7 +73,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "capybara-webkit", ">= 1.0.0"
+  gem "capybara-webkit", ">= 1.2.0"
   gem "database_cleaner"
   gem "launchy"
   gem "shoulda-matchers", "~> 2.7.0"

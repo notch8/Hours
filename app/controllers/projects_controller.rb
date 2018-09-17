@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @project = Project.new
+    @project = Project.new(billable: true)
     User.find_each do |user|
       @project.rates.build(user: user, amount: user.base_amount)
     end

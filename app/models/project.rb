@@ -71,7 +71,7 @@ class Project < ActiveRecord::Base
     if use_dollars
       amount = 0
       rates.each do |r|
-        amount = hour.value * r.amount if hour.user_id == r.user_id
+        amount = hour.value.to_f * r.amount.to_f if hour.user_id == r.user_id
       end
       amount
     end

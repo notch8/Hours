@@ -900,7 +900,7 @@ DEPENDENCIES
   bitters
   bourbon
   brakeman
-  capybara-webkit (>= 1.0.0)
+  capybara-webkit (>= 1.2.0)
   coffee-rails
   dalli
   database_cleaner
