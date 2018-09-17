@@ -1,6 +1,5 @@
 class HoursController < EntriesController
   def create
-     puts params
     @entry = Hour.new(entry_params)
     @entry.user = current_user
 
