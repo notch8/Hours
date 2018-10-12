@@ -2,7 +2,7 @@ include TimeSeriesInitializer
 
 class ProjectsController < ApplicationController
   def index
-    @projects = Project.unarchived.by_last_updated.page(params[:page]).per(7)
+    @projects = Project.unarchived.by_last_updated.page(params[:page]).per(15)
     @hours_entry = Hour.new
     @mileages_entry = Mileage.new
     @activities = Hour.by_last_created_at.limit(30)
@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @project = Project.new
+    @project = Project.new(billable: true)
     User.find_each do |user|
       @project.rates.build(user: user, amount: user.base_amount)
     end
@@ -39,6 +39,14 @@ class ProjectsController < ApplicationController
     else
       render action: "edit"
     end
+  end
+
+  def selected
+      @project = Project.find(params[:id])
+      
+      respond_to do |format|
+          format.js
+      end
   end
 
   private

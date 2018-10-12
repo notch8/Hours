@@ -7,7 +7,8 @@ gem "delayed_job_active_record", "4.0.3"
 gem "email_validator"
 gem "flutie"
 gem "high_voltage"
-gem "jquery-rails", "~> 4.0"
+gem "jquery-rails", "~> 4.3", ">= 4.3.3"
+gem "rails-ujs", "~> 0.1.0"
 gem "neat"
 gem "bitters"
 gem "pg"
@@ -58,6 +59,7 @@ group :development do
   gem "pry"
   gem "spring"
   gem "spring-commands-rspec"
+  gem "web-console"
 end
 
 group :development, :test do
@@ -71,7 +73,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "capybara-webkit", ">= 1.0.0"
+  gem "capybara-webkit", ">= 1.2.0"
   gem "database_cleaner"
   gem "launchy"
   gem "shoulda-matchers", "~> 2.7.0"
