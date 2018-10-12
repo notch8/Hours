@@ -23,6 +23,8 @@ variables:
 
 
 before_script:
+  - touch .env.development
+  - touch .env.production
   - export TAG=$CI_COMMIT_REF_SLUG
 
 build:
