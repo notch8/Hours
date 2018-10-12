@@ -38,7 +38,7 @@ build:
 
 test:
   stage: test
-  image: $CI_REGISTRY_IMAGE:$CI_PROJECT_NAME-$CI_BUILD_REF_SLUG
+  image: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_SLUG
   script:
     - cd /home/app/webapp && bundle exec rake db:create db:schema:load spec
   tags:
@@ -81,8 +81,8 @@ production:
   type: deploy
   script:
     - docker login -u "gitlab-ci-token" -p "$CI_BUILD_TOKEN" $CI_REGISTRY
-    - docker pull $CI_REGISTRY_IMAGE:$CI_PROJECT_NAME-$CI_BUILD_REF_SLUG
-    - docker tag $CI_REGISTRY_IMAGE:$CI_PROJECT_NAME-$CI_BUILD_REF_SLUG $CI_REGISTRY_IMAGE:dev
+    - docker pull $CI_REGISTRY_IMAGE:$CI_BUILD_REF_SLUG
+    - docker tag $CI_REGISTRY_IMAGE:$CI_BUILD_REF_SLUG $CI_REGISTRY_IMAGE:production
     - sc release production
     - sc deploy production
   when: manual
