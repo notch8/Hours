@@ -879,6 +879,10 @@ GEM
       raindrops (~> 0.7)
     warden (1.2.7)
       rack (>= 1.0)
+    web-console (3.3.0)
+      activemodel (>= 4.2)
+      debug_inspector
+      railties (>= 4.2)
     webmock (1.18.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -956,6 +960,7 @@ DEPENDENCIES
   twitter-text
   uglifier
   unicorn
+  web-console
   webmock
 
 BUNDLED WITH

@@ -1,7 +1,7 @@
 Hours::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
- config.web_console.whitelisted_ips = ['172.16.0.0/12', '192.168.0.0/16']
+  config.web_console.whitelisted_ips = ['172.16.0.0/12', '192.168.0.0/16']
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
@@ -21,7 +21,7 @@ Hours::Application.configure do
   end
 
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.delivery_method = :test
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
