@@ -11,15 +11,16 @@ stages:
   - production
 
 variables:
-  POSTGRES_DB: Hours
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: password
-  POSTGRES_HOST: postgres
-  TEST_DB: Hours
+  DB_ADAPTER: postgresql  
   DOCKER_DRIVER: overlay
+  POSTGRES_DB: Hours
+  POSTGRES_HOST: postgres
+  POSTGRES_PASSWORD: password
+  POSTGRES_USER: postgres
   REGISTRY_HOST: registry.gitlab.com
   REGISTRY_URI: /notch8/hours
   SITE_URI_BASE: hours.notch8.com
+  TEST_DB: Hours
 
 
 before_script:
