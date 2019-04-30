@@ -65,6 +65,10 @@ $sc be rake db:create db:schema:load db:migrate db:seed
 
 After successful seed migration, go to http://testinstance.lvh.me:3000
 
+in rails console, to switch to notch8 tenant
+
+$Apartment::Tenant.switch('hours')
+
 
 Feature Flags
 -------------
