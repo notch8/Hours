@@ -19,6 +19,7 @@ class SubdomainBlank
 end
 
 Hours::Application.routes.draw do
+  resources :timers
   if Hours.single_tenant_mode?
     root "projects#index"
     draw :subdomain_present
