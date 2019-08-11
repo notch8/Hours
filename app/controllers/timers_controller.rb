@@ -9,7 +9,9 @@ class TimersController < ApplicationController
   end
 
   def new
-    @timer = current_user.timers.new
+    latest_project = current_user.hours.last&.project
+    latest_category = current_user.hours.last&.category
+    @timer = current_user.timers.new(billed: true, project: latest_project, category: latest_category)
     form_setup
   end
 

@@ -9,13 +9,29 @@
               %a.tab-link{href: "#timer"}= t("entries.index.running_timer")
               #timer-tab.tab-like-content
                 = simple_form_for @timer do |f|
+                  .log-timer-container
+                    .wrapper
+                      .message
+                        You have a Timer Running
+                      = f.button :submit, value: 'Submit Timer', id: 'log_timer_button'
+                  %hr
+
+                  .edit-header-container
+                    %h4 - OR Edit Timer -
+
+
                   = f.error_notification
-                  = f.label "Start Time"
-                  #starts_at_select
-                  = f.input :starts_at, as: :string, input_html: { value: @timer.starts_at.iso8601},  label: false
-                  = f.label "End Time"
-                  #ends_at_select
-                  = f.input :ends_at, as: :string, input_html: { value: @timer.ends_at&.iso8601},  label: false
+                  .datepicker-container
+                    .start-container
+                      = f.label "Start"
+                      #starts_at_select
+                      = f.input :starts_at, as: :hidden, input_html: { value: @timer.starts_at.iso8601},  label: false
+                    .middle-container
+                      %h5 -TO-
+                    .end-container
+                      = f.label "End"
+                      #ends_at_select
+                      = f.input :ends_at, as: :hidden, input_html: { value: @timer.ends_at&.iso8601},  label: false
                   = f.label "Project"
                   = f.association :project, required: true, collection: @projects, label: false, placeholder: t("entries.index.project")
                   = f.label "Category"
@@ -32,7 +48,9 @@
   function setControl(theDate, target, inputTarget){
     var config = {
       target: target,
-      timestamp: theDate.getTime()
+      timestamp: theDate.getTime(),
+      smartHours: false, 
+      animations: true, 
     };
     var startDatepicker = new MtrDatepicker(config);
     startDatepicker.onChange('all', function() {
@@ -45,5 +63,13 @@
     var endDate = new Date("#{(@timer.ends_at || Time.now).iso8601}");
     setControl(startDate, 'starts_at_select', '#timer_starts_at')
     setControl(endDate, 'ends_at_select', '#timer_ends_at')
+
+    $('form.edit_timer').submit(function(){
+      var now = new Date();
+      var endsAt = $('#timer_ends_at')
+      if(!endsAt.val()){
+        endsAt.val(now.toUTCString())
+      }
+    })
   })
 

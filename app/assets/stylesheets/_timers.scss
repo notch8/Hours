@@ -1,0 +1,46 @@
+.log-timer-container{
+  display: flex;
+  justify-content: center;
+  padding: 100px;
+  border: 2px solid blue;
+  background-color: #454545;
+
+  .message{
+    color: white;
+  }
+
+  #log_timer_button{
+    font-size: 3em;
+  }
+}
+
+.edit-header-container{
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.datepicker-container{
+  display: flex;
+  justify-content: space-evenly;
+
+  #starts_at_select,#ends_at_select{
+    border: 4px solid #cecece;
+  }
+
+  label{
+    font-weight: bolder;
+  }
+
+  .middle-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+
+
+.mtr-input-radio > form > div{
+  clear: both;
+}
