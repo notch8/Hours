@@ -90,16 +90,18 @@
     }
   }
 
-  .tab-content {
+  .tab-content, .tab-like-content {
     @include media($medium-screen) {
       border-top: $tab-border;
       border-bottom: $tab-border;
       float: left;
     }
     background: $tab-content-background;
-    display: none;
     padding: $base-spacing $gutter;
     width: 100%;
+  }
+  .tab-content{
+    display: none;
   }
 
   .tab-reports-content{

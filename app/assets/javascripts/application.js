@@ -1,6 +1,5 @@
 /* global Pikaday, Tagger, TagExpander */
 
-//= require jquery
 //= require jquery_ujs
 //= require jquery.atwho
 //= require moment
@@ -10,6 +9,7 @@
 //= require i18n
 //= require billables
 //= require date-formatter
+//= require mtr-datepicker/mtr-datepicker.min
 //= require feed
 //= require_tree .
 

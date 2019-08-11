@@ -1,0 +1,12 @@
+= simple_form_for @timer do |f|
+  = f.error_notification
+  = f.label "Project"
+  = f.association :project, required: true, collection: @projects, label: false, placeholder: t("entries.index.project")
+  = f.label "Category"
+  = f.association :category, required: true, collection: @categories, label: false, placeholder: t("entries.index.category")
+  .taggable
+    = f.label "Description"
+    = f.input :description, input_html: { data: { data: Tag.list }, autocomplete: :off }, label: false, autocomplete: "off", placeholder: t("entries.index.description")
+    %span.background-highlighter
+  = f.input :billed
+  = f.button :submit, value: 'Start Timer',  data: { disable_with: t("loader.saving")}, id: 'entry_button'

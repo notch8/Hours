@@ -130,6 +130,9 @@ en:
       project: Project
       user_entries: "%{user}'s entries"
       changes: changes
+      start_timer: Start Timer
+      timer: Timer
+      running_timer: "Your Running Timer"
   entry_activity_html:
     one: "%{user} spent one hour doing %{category} on %{project}"
     other: "%{user} spent %{count} hours doing %{category} on %{project}"
