@@ -21,7 +21,7 @@ def build_user
   print "email: "
   email = STDIN.gets.chomp   
   print "Password: "
-  password = STDIN.noecho(&:gets).chomp
+  password = STDIN.gets.chomp
   puts
   User.new(first_name: first_name,
            last_name: last_name,
