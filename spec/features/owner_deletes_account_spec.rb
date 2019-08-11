@@ -7,19 +7,6 @@ feature "Delete Account" do
   end
 
   context "as the owner of an account" do
-    scenario "deleting the account" do
-      sign_in_user(owner, subdomain: subdomain)
-
-      visit edit_account_url(subdomain: subdomain)
-      expect(page).to have_content "Danger Zone"
-
-      click_button "Delete my account"
-
-      expect(page).to have_content "Your account was deleted. Sorry to see you go."
-      expect { Account.find_by!(subdomain: subdomain) }.to raise_error ActiveRecord::RecordNotFound
-      expect { Apartment::Tenant.switch(subdomain) }.to raise_error Apartment::TenantNotFound
-    end
-
     scenario "has a menu item to edit account" do
       sign_in_user(owner, subdomain: subdomain)
 
