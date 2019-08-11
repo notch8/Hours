@@ -1,5 +1,8 @@
 .new_entry_wrapper
-  %h2= form_title
+  %h2
+    %span= form_title
+    %span
+      = link_to "Timer", timers_path
   = simple_form_for(@entry) do |f|
     = f.error_notification
     = f.association :project, required: true, collection: Project.unarchived.by_name, label: false, placeholder: t("entries.index.project")

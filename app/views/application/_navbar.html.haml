@@ -3,6 +3,10 @@
     %ul
       = nav_path t("titles.projects.index"), root_path
       = nav_path t("navbar.entries"), user_entries_path(current_user)
+      - if current_user.active_timer
+        = nav_path hours_and_minutes_for_timer(current_user.active_timer), timers_path
+      - else
+        = nav_path t("navbar.start_timer"), timers_path
   - localized_cache current_user do
     .nav-user
       %ul

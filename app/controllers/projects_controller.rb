@@ -6,6 +6,9 @@ class ProjectsController < ApplicationController
     @hours_entry = Hour.new
     @mileages_entry = Mileage.new
     @activities = Hour.by_last_created_at.limit(30)
+
+    @timer = current_user.timers.new
+    @categories = Category.by_name
   end
 
   def show

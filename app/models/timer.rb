@@ -4,11 +4,21 @@ class Timer < ActiveRecord::Base
   belongs_to :user
   belongs_to :hour, required: false
 
-  before_save :manage_hour
+  after_save :manage_hour
+
+  validates :starts_at, presence: true
+  validates :project, presence: true
+  validates :category, presence: true
+  validates :user, presence: true
+
+  def duration_humanized
+    end_time = ends_at || Time.now
+    ActionView::Helpers::DateHelper.distance_of_time_in_words(end_time - starts_at)
+  end
 
   private
   def manage_hour
-    if ends_at_changed?
+    if ends_at_changed? && !hour
       create_hour!
     end
   end
