@@ -27,18 +27,6 @@ feature "User registers kilometers" do
   end
 
   context "with invalid data" do
-    scenario "doubles" do
-      within ".tab-header-and-content-right" do
-        select conversations.name, from: I18n.t("entries.index.project")
-        fill_in "mileage_value", with: 0.5
-        fill_in "mileage_date", with: "01/02/2014"
-
-        click_button (I18n.t("helpers.submit.create"))
-      end
-      expect(page).to have_content(
-        I18n.t("activerecord.attributes.mileage.value") + " must be an integer")
-    end
-
     scenario "blank text" do
       within ".tab-header-and-content-right" do
         select capp11.name, from: I18n.t("entries.index.project")
