@@ -24,7 +24,6 @@ services:
       dockerfile: Dockerfile.base
 
   web:
-    env_file: .env
     build: .
     image: "${REGISTRY_HOST}${REGISTRY_URI}:${TAG:-master}"
     env_file:
@@ -41,8 +40,8 @@ services:
     # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container:
     tty: true
     ports:
+      - "80"
       - "${DEV_PORT}"
-      - "8082:3000"
     depends_on:
       - postgres
       - memcached
