@@ -17,10 +17,10 @@
       %tbody
         = f.simple_fields_for :rates do |r|
           %tr
-            %td= r.object.user.first_name
+            %td= r.object.user&.first_name
             %td
               = r.input :amount, as: :float, label: false
-              = r.input :user_id, as: :integer, as: :hidden
+              = r.input :user_id, as: :hidden
     %br/
     = f.button :submit, data: { disable_with: t("loader.saving") }
 
