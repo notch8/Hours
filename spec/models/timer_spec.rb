@@ -1,5 +1,5 @@
 describe Timer, type: :model do
-  let(:new_timer){create :new_timer, billed: true}
+  let(:new_timer){create :new_timer, is_client_billable: true}
   it "should create an hour record when ends_at is added" do
     new_timer.update_attribute(:ends_at, Time.now)
     expect(new_timer.hour).to_not be_nil
@@ -32,7 +32,7 @@ describe Timer, type: :model do
     end
 
     it "should set billed boolean" do
-      expect(hour.billed).to be_truthy
+      expect(hour.is_client_billable).to be_truthy
     end
 
     it "should calculate hours" do

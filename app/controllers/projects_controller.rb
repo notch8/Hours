@@ -6,10 +6,10 @@ class ProjectsController < ApplicationController
     latest_category = current_user.hours.last&.category
 
     @projects = Project.unarchived.by_last_updated.page(params[:page]).per(15)
-    @hours_entry = Hour.new(billed: true, project: latest_project, category: latest_category)
+    @hours_entry = Hour.new(is_client_billable: true, project: latest_project, category: latest_category)
     @mileages_entry = Mileage.new
     @activities = Hour.by_last_created_at.limit(30)
-    @timer = current_user.timers.new(billed: true, project: latest_project, category: latest_category)
+    @timer = current_user.timers.new(is_client_billable: true, project: latest_project, category: latest_category)
     @categories = Category.by_name
   end
 

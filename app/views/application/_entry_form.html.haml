@@ -12,4 +12,5 @@
     .taggable
       = f.input :description, input_html: { data: { data: Tag.list }, autocomplete: :off }, label: false, autocomplete: "off", placeholder: t("entries.index.description")
       %span.background-highlighter
+    = f.input :is_client_billable
     = f.button :submit, data: { disable_with: t("loader.saving") }

@@ -30,7 +30,7 @@ class Timer < ActiveRecord::Base
       user: self.user,
       date: self.starts_at.to_date,
       description: self.description,
-      billed: self.billed,
+      is_client_billable: self.is_client_billable,
       value: ((self.ends_at - self.starts_at) / 1.hour).round(1)
     )
   end

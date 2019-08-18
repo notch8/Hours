@@ -125,6 +125,7 @@ en:
       edit_hours_entry: Edit Hours Entry
       edit_mileages_entry: Edit Kilometers Entry
       hours: Hours
+      client_billable: Client Billable
       mileages: Kilometers
       new: New Entry
       project: Project

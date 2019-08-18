@@ -11,7 +11,7 @@ class TimersController < ApplicationController
   def new
     latest_project = current_user.hours.last&.project
     latest_category = current_user.hours.last&.category
-    @timer = current_user.timers.new(billed: true, project: latest_project, category: latest_category)
+    @timer = current_user.timers.new(is_client_billable: true, project: latest_project, category: latest_category)
     form_setup
   end
 
@@ -56,7 +56,7 @@ class TimersController < ApplicationController
 
   private
   def timer_params
-    params.require(:timer).permit(:project_id, :category_id, :description, :starts_at, :ends_at, :billed)
+    params.require(:timer).permit(:project_id, :category_id, :description, :starts_at, :ends_at, :is_client_billable)
   end
 
   def form_setup
