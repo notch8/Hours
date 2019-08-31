@@ -908,7 +908,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   delayed_job_active_record (= 4.0.3)
-  devise
+  devise (~> 4.6.2)
   devise_invitable
   dotenv-rails
   email_spec
