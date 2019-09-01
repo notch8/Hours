@@ -1,6 +1,13 @@
 class SessionsController < Devise::SessionsController
   respond_to :html, :json
 
+  def verify_signed_out_user
+    respond_to do |format|
+      format.html{ super }
+      format.json{ }
+    end
+  end
+
   private
 
   def respond_with(resource, _opts = {})
