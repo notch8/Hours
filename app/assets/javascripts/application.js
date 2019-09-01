@@ -1,6 +1,5 @@
 /* global Pikaday, Tagger, TagExpander */
 
-//= require jquery
 //= require jquery_ujs
 //= require jquery.atwho
 //= require moment
@@ -10,6 +9,7 @@
 //= require i18n
 //= require billables
 //= require date-formatter
+//= require mtr-datepicker/mtr-datepicker.min
 //= require feed
 //= require_tree .
 
@@ -47,6 +47,8 @@ $(document).ready(function() {
   $('#hour_category_id').select2();
   $('#mileage_project_id').select2();
   $('#project_client_id').select2();
+  $('#timer_project_id').select2();
+  $('#timer_category_id').select2();
 
   if ($('body').hasClass('projects-index')) {
     new Tagger($('.taggable'));
