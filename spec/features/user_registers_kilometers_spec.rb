@@ -15,7 +15,7 @@ feature "User registers kilometers" do
 
   context "with valid data" do
     scenario "full data" do
-      within ".tab-header-and-content-right" do
+      within "#mileages-tab" do
         select capp11.name, from: I18n.t("entries.index.project")
         fill_in (I18n.t("entries.index.mileages")), with: 20
         fill_in "mileage_date", with: "17/02/2015"
@@ -28,7 +28,7 @@ feature "User registers kilometers" do
 
   context "with invalid data" do
     scenario "blank text" do
-      within ".tab-header-and-content-right" do
+      within "#mileages-tab" do
         select capp11.name, from: I18n.t("entries.index.project")
         fill_in (I18n.t("entries.index.mileages")), with: ""
         fill_in "mileage_date", with: "17/02/2015"

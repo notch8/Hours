@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190831203215) do
+ActiveRecord::Schema.define(version: 20190817233324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,15 +80,16 @@ ActiveRecord::Schema.define(version: 20190831203215) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "hours", force: :cascade do |t|
-    t.integer  "project_id",                                           null: false
-    t.integer  "category_id",                                          null: false
-    t.integer  "user_id",                                              null: false
-    t.decimal  "value",       precision: 10, scale: 2,                 null: false
-    t.date     "date",                                                 null: false
+    t.integer  "project_id",                                                  null: false
+    t.integer  "category_id",                                                 null: false
+    t.integer  "user_id",                                                     null: false
+    t.decimal  "value",              precision: 10, scale: 2,                 null: false
+    t.date     "date",                                                        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "description"
-    t.boolean  "billed",                               default: false
+    t.boolean  "billed",                                      default: false
+    t.boolean  "is_client_billable",                          default: true
   end
 
   add_index "hours", ["billed"], name: "index_hours_on_billed", using: :btree
@@ -166,6 +167,25 @@ ActiveRecord::Schema.define(version: 20190831203215) do
 
   add_index "tags", ["slug"], name: "index_tags_on_slug", using: :btree
 
+  create_table "timers", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "category_id"
+    t.integer  "user_id"
+    t.integer  "hour_id"
+    t.float    "hours"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.text     "description"
+    t.boolean  "is_client_billable"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "timers", ["category_id"], name: "index_timers_on_category_id", using: :btree
+  add_index "timers", ["hour_id"], name: "index_timers_on_hour_id", using: :btree
+  add_index "timers", ["project_id"], name: "index_timers_on_project_id", using: :btree
+  add_index "timers", ["user_id"], name: "index_timers_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "first_name",                                     default: "", null: false
     t.string   "last_name",                                      default: "", null: false
@@ -207,4 +227,8 @@ ActiveRecord::Schema.define(version: 20190831203215) do
 
   add_foreign_key "rates", "projects"
   add_foreign_key "rates", "users"
+  add_foreign_key "timers", "categories"
+  add_foreign_key "timers", "hours"
+  add_foreign_key "timers", "projects"
+  add_foreign_key "timers", "users"
 end
