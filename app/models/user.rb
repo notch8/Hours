@@ -7,7 +7,9 @@ class User < ActiveRecord::Base
          :trackable,
          :validatable,
          :confirmable,
-         :invitable
+         :invitable,
+         :jwt_authenticatable,
+         jwt_revocation_strategy: JwtBlacklist
 
   validates_presence_of :first_name, :last_name
 

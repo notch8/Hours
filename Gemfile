@@ -12,6 +12,7 @@ gem "rails-ujs", "~> 0.1.0"
 gem "neat"
 gem "bitters"
 gem "pg"
+gem "rack-cors"
 gem "rack-timeout"
 gem "rails", "~> 4.2.10"
 gem "recipient_interceptor"
@@ -87,3 +88,5 @@ group :staging, :production do
   gem "rails_12factor"
 end
 gem 'activerecord-nulldb-adapter'
+
+gem "devise-jwt", "~> 0.6.0"
