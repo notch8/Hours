@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   has_one :account, foreign_key: "owner_id", inverse_of: :owner
   belongs_to :organization, class_name: "Account", inverse_of: :users
+  has_many :timers
   has_many :hours
   has_many :mileages
   has_many :projects, -> { uniq }, through: :hours
@@ -37,5 +38,11 @@ class User < ActiveRecord::Base
 
   def acronyms
     first_name[0] + last_name[0]
+  end
+
+  def active_timer
+    timers
+      .where(ends_at: nil)
+      .last
   end
 end

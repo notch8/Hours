@@ -5,6 +5,7 @@
     %meta{:content => "noindex, nofollow", :name => "robots"}/
     %title= [(content_for(:page_title) || title), t("titles.application")].compact.uniq.join(" | ")
     = stylesheet_link_tag :application, :media => 'all'
+    %script{src: "https://code.jquery.com/jquery-3.4.1.min.js", integrity: "sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=", crossorigin: "anonymous"}
     = csrf_meta_tags
     %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", :name => "viewport"}/
     %meta{:content => "yes", :name => "apple-mobile-web-app-capable"}/

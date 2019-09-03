@@ -40,6 +40,7 @@ services:
     # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container:
     tty: true
     ports:
+      - "80"
       - "${DEV_PORT}"
     depends_on:
       - postgres
