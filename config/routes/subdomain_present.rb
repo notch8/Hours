@@ -1,4 +1,4 @@
-devise_for :users, controllers: { registrations: "users/registrations", sessions: 'sessions' }
+devise_for :users, controllers: { registrations: "users/registrations", sessions: 'users/sessions' }
 resources :timers
 resources :archives, only: [:index]
 resources :projects, only: [:index, :edit, :new, :update, :create, :show] do
