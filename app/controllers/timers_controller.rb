@@ -1,10 +1,23 @@
 class TimersController < ApplicationController
   def index
     active_timer = current_user.active_timer
-    if active_timer
-      redirect_to edit_timer_path(active_timer)
-    else
-      redirect_to new_timer_path
+
+    respond_to do |format|
+      format.html do
+         if active_timer
+          redirect_to edit_timer_path(active_timer)
+        else
+          redirect_to new_timer_path
+        end
+      end
+
+      format.json do
+        if active_timer
+          render json: active_timer
+        else
+          render text: "No Timer Running", status: 404
+        end
+      end
     end
   end
 
