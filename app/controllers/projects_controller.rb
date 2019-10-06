@@ -1,6 +1,8 @@
 include TimeSeriesInitializer
 
 class ProjectsController < ApplicationController
+  load_resource only: [:show]
+
   def index
     latest_project = current_user.hours.last&.project
     latest_category = current_user.hours.last&.category
@@ -14,7 +16,13 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @time_series = time_series_for(resource)
+    @time_series = time_series_for(@project)
+    respond_to do |format|
+      format.html{}
+      format.json do
+        render json: @project
+      end
+    end
   end
 
   def edit
