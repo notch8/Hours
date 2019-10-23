@@ -15,7 +15,7 @@ class TimersController < ApplicationController
         if active_timer
           render json: active_timer
         else
-          render text: "No Timer Running", status: 404
+          render json: {error: 'not found'}, status: 404
         end
       end
     end
