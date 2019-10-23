@@ -90,3 +90,5 @@ end
 gem 'activerecord-nulldb-adapter'
 
 gem "devise-jwt", "~> 0.6.0"
+
+gem "cancancan", "~> 3.0"

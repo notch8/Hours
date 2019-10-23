@@ -1,8 +1,15 @@
 include TimeSeriesInitializer
 
 class UsersController < ApplicationController
+  load_resource only:  [:show]
   def show
-    @time_series = time_series_for(resource)
+    @time_series = time_series_for(@user)
+    respond_to do |format|
+      format.html{}
+      format.json do
+        render json: @user
+      end
+    end
   end
 
   def index
@@ -32,10 +39,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-  def resource
-    @user ||= User.find_by_slug(params[:id])
-  end
 
   def user_params
     params.require(:user).permit(:first_name,

@@ -7,7 +7,7 @@ resources :projects, only: [:index, :edit, :new, :update, :create, :show] do
     get :selected
   end
 end
-resources :categories, only: [:index, :create, :edit, :update]
+resources :categories, only: [:index, :show, :create, :edit, :update]
 resources :entries, only: [:index]
 
 resources :hours, :mileages, only: [:create, :destroy, :update, :edit, :patch] do

@@ -1,9 +1,14 @@
 class CategoriesController < ApplicationController
+  load_resource only: [:show]
   before_action :find_category, only: [:edit, :update]
 
   def index
     @category = Category.new
     @categories = Category.by_name
+  end
+
+  def show
+    render json: @category 
   end
 
   def create
