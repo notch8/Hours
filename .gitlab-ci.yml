@@ -36,6 +36,8 @@ build:
     - sc push
   tags:
     - docker
+  variables:
+    GIT_STRATEGY: fetch
 
 test:
   stage: test
@@ -44,8 +46,6 @@ test:
     - cd /home/app/webapp && bundle exec rake db:create db:migrate spec
   tags:
     - docker
-  variables:
-    GIT_STRATEGY: fetch
 
 #review:
 #  stage: review
