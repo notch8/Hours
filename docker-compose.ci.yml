@@ -16,6 +16,7 @@ services:
     image: "${REGISTRY_HOST}${REGISTRY_URI}:${TAG:-master}"
     env_file:
       - .env
+      - .env.development
       rap.host: ${SITE_URI}
       rap.le_host: ${SITE_URI}
       rap.le_test: true
