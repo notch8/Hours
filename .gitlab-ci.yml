@@ -11,7 +11,6 @@ stages:
   - production
 
 variables:
-  GIT_STRATEGY: fetch
   DB_ADAPTER: postgresql  
   DOCKER_DRIVER: overlay
   POSTGRES_DB: Hours
@@ -46,7 +45,7 @@ test:
   tags:
     - docker
   variables:
-    GIT_STRATEGY: none
+    GIT_STRATEGY: fetch
 
 #review:
 #  stage: review
