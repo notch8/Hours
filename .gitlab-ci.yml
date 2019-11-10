@@ -11,6 +11,7 @@ stages:
   - production
 
 variables:
+  GIT_STRATEGY: fetch
   DB_ADAPTER: postgresql  
   DOCKER_DRIVER: overlay
   POSTGRES_DB: Hours
