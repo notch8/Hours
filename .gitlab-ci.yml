@@ -41,7 +41,7 @@ test:
   stage: test
   image: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_SLUG
   script:
-    - cd /home/app/webapp && bundle exec rake db:create db:schema:load db:migrate spec
+    - cd /home/app/webapp && bundle exec rake db:create db:migrate spec
   tags:
     - docker
   variables:
