@@ -35,9 +35,17 @@ build:
     - sc build
     - sc push
   tags:
-    - docker
-  variables:
-    GIT_STRATEGY: fetch
+    - local
+
+base:
+  stage: build
+  script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - sc build -s base
+    - sc push -s base
+  when: manual
+  tags:
+    - local
 
 test:
   stage: test
@@ -46,6 +54,8 @@ test:
     - cd /home/app/webapp && bundle exec rake db:create db:migrate spec
   tags:
     - docker
+  variables:
+    GIT_STRATEGY: none
 
 #review:
 #  stage: review
@@ -88,4 +98,4 @@ production:
     - sc deploy production
   when: manual
   tags:
-    - docker
+    - local
