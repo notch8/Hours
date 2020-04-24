@@ -3,10 +3,30 @@ class HoursController < EntriesController
     @entry = Hour.new(entry_params)
     @entry.user = current_user
 
-    if @entry.save
-      redirect_to root_path, notice: t("entry_created.hours")
-    else
-      redirect_to root_path, notice: @entry.errors.full_messages.join(". ")
+    respond_to do |format|
+      if @entry.save
+        format.html {
+          redirect_to root_path, notice: t("entry_created.hours")
+        }
+        format.js {
+          flash[:notice] = t("entry_created.hours")
+          render js: "window.location='#{root_path}'"
+        }
+        format.json {
+          render json: @entry, status: :created, location: root_path
+        }
+      else
+        format.html {
+          redirect_to root_path, notice: @entry.errors.full_messages.join(". ")
+        }
+        format.js {
+          flash[:notice] = @entry.errors.full_messages.join(". ")
+          render js: "window.location='#{root_path}'"
+        }
+        format.json {
+          render json: @entry.errors, status: :unprocessable_entity
+        }
+      end
     end
   end
 
@@ -31,7 +51,7 @@ class HoursController < EntriesController
 
   def entry_params
     params.require(:hour).
-      permit(:project_id, :category_id, :value, :description, :date).
+      permit(:project_id, :user_id, :category_id, :value, :description, :date, :is_client_billable).
       merge(date: parsed_date(:hour))
   end
 end

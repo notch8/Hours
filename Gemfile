@@ -1,7 +1,5 @@
 source "https://rubygems.org"
 
-ruby "2.4.2"
-
 gem "airbrake"
 gem "bourbon"
 gem "coffee-rails"
@@ -9,10 +7,12 @@ gem "delayed_job_active_record", "4.0.3"
 gem "email_validator"
 gem "flutie"
 gem "high_voltage"
-gem "jquery-rails", "~> 4.0"
+gem "jquery-rails", "~> 4.3", ">= 4.3.3"
+gem "rails-ujs", "~> 0.1.0"
 gem "neat"
 gem "bitters"
 gem "pg"
+gem "rack-cors"
 gem "rack-timeout"
 gem "rails", "~> 4.2.10"
 gem "recipient_interceptor"
@@ -21,8 +21,8 @@ gem "simple_form", "~> 3.5.0"
 gem "title"
 gem "uglifier"
 gem "unicorn"
-gem "devise", "~> 3.5.2"
-gem "devise_invitable", "~> 1.5.5"
+gem "devise", "~> 4.6.2"
+gem "devise_invitable"
 gem "apartment", "~> 0.26.0"
 gem "pikaday-gem", "~> 1.2.0.0"
 gem "momentjs-rails"
@@ -60,6 +60,7 @@ group :development do
   gem "pry"
   gem "spring"
   gem "spring-commands-rspec"
+  gem "web-console"
 end
 
 group :development, :test do
@@ -73,7 +74,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "capybara-webkit", ">= 1.0.0"
+  gem "capybara-webkit", ">= 1.2.0"
   gem "database_cleaner"
   gem "launchy"
   gem "shoulda-matchers", "~> 2.7.0"
@@ -86,3 +87,8 @@ group :staging, :production do
   gem "newrelic_rpm", ">= 3.7.3"
   gem "rails_12factor"
 end
+gem 'activerecord-nulldb-adapter'
+
+gem "devise-jwt", "~> 0.6.0"
+
+gem "cancancan", "~> 3.0"

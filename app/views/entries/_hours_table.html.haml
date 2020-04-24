@@ -3,6 +3,8 @@
     %th= t("entries.index.date")
     %th= t("entries.index.project")
     %th.center= t("entries.index.hours")
+    %th.center= t("entries.index.client_billable")
+    %th= t("entries.index.amount")
     %th.hide-for-mobile= t("entries.index.category")
     %th.hide-for-mobile= t("entries.index.description")
     - if @user == current_user
@@ -17,6 +19,8 @@
           = I18n.l (entry.date)
         %td.project= link_to entry.project.name, entry.project
         %td.hours.center= entry.value
+        %td.hours.center= entry.is_client_billable
+        %td.amount= number_to_currency(entry.project.amount_per_entry_user(entry))
         %td.category.hide-for-mobile
           %span.color{:style => "background-color:#{entry.category.name.pastel_color};"}
           = entry.category.name
@@ -29,4 +33,3 @@
             = link_to t('entries.index.delete'), hour_path(entry), method: :delete, class: "destroy", data: { confirm: t(:confirm) }
         %td.changes.right.hide-for-mobile
           = link_to t('entries.index.changes'), hour_audits_path(entry) if entry.audits.count > 1
-

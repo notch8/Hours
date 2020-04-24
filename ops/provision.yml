@@ -1,0 +1,17 @@
+---
+- name: Provision
+  hosts: all
+  gather_facts: False
+  tasks:
+    - set_fact:
+        deploy_env: "{{ lookup('env', 'DEPLOY_ENV') }}"
+        stack_name: "{{ lookup('env', 'APP_NAME') }}"
+
+    - name: Provision via rancher
+      shell: "cd .. && dotenv -f .env,.env.{{ deploy_env }} 'rancher up -p -d -u -s {{ stack_name }} -f docker-compose.{{ deploy_env }}.yml'"
+      register: result
+      delegate_to: 127.0.0.1
+      environment:
+        APP_NAME: "{{ lookup('env', 'APP_NAME') }}"
+        TAG: "{{ lookup('env', 'TAG') }}"
+    - debug: var=result.stdout_lines

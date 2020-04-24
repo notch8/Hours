@@ -1,0 +1,11 @@
+.outer
+  .wrapper
+    .projects-overview
+      .new-entry-wrapper
+        %h2= t("entries.index.start_timer")
+        .projects-tabs-container
+          %ul.accordion-tabs
+            %li.tab-header-and-content-left
+              %a.tab-link{href: "#timer"}= t("entries.index.timer")
+              #timer-tab.tab-content
+                = render partial: "application/timer_entry_form"

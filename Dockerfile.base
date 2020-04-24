@@ -1,0 +1,50 @@
+FROM phusion/passenger-ruby24:0.9.28
+
+RUN echo 'Downloading Packages' && \
+    curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+    apt-get update -qq && \
+    apt-get install -y \
+      build-essential \
+      imagemagick \
+      libpq-dev \
+      libqt5webkit5-dev \
+      libsasl2-dev \
+      nodejs \
+      postgresql-client \
+      pv \
+      qt5-default \
+      tzdata \
+      && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    echo 'Packages Downloaded'
+
+
+RUN rm /etc/nginx/sites-enabled/default
+
+ENV APP_HOME /home/app/webapp
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
+
+ENV BUNDLE_GEMFILE=$APP_HOME/Gemfile \
+  BUNDLE_JOBS=4
+
+ADD Gemfile* $APP_HOME/
+RUN bundle check || bundle install
+
+RUN touch /var/log/worker.log && chmod 666 /var/log/worker.log
+RUN mkdir /etc/service/worker
+ADD ops/worker.sh /etc/service/worker/run
+RUN chmod +x /etc/service/worker/run
+
+ADD . $APP_HOME
+RUN chown -R app $APP_HOME
+
+# this is so that these items are cached and only have to be updated
+RUN  /sbin/setuser app /bin/bash -l -c 'cd /home/app/webapp && DB_ADAPTER=nulldb bundle exec rake assets:precompile'
+
+# Migrate if prod, otherwise just start nginx
+ADD ops/nginx.sh /etc/service/nginx/run
+RUN chmod +x /etc/service/nginx/run
+RUN rm -f /etc/service/nginx/down
+

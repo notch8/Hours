@@ -1,0 +1,15 @@
+---
+- name: Deploy
+  hosts: all
+  gather_facts: False
+  tasks:
+    - name: deploy app
+      delegate_to: 127.0.0.1
+      uri:
+        url: "{{ lookup('env','DEPLOY_HOOK') }}"
+        method: POST
+        return_content: yes
+        body: { "push_data": { "tag": "{{ lookup('env', 'TAG' }}" }, "repository": { "repo_name":"{{ lookup('env', 'REGISTRY_HOST') }}{{ lookup('env', 'REGISTRY_URI') }}" }}
+        body_format: json
+        status_code: 200
+

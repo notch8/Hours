@@ -1,0 +1,35 @@
+version: '2'
+services:
+  memcached:
+    image: memcached
+    env_file:
+      - .env
+      - .env.production
+    ports:
+      - "11211"
+
+  web:
+    image: "${REGISTRY_HOST}${REGISTRY_URI}:${TAG}"
+    environment:
+      - RAILS_ENV=production
+      - RACK_ENV=production
+      - PASSENGER_APP_ENV=production
+    restart: unless-stopped
+    ports:
+      - "80"
+    labels:
+      rap.host: ${SITE_URI}
+      rap.le_host: ${SITE_URI}
+      rap.le_test: false
+      rap.https_method: noredirect
+      io.rancher.container.pull_image: always
+    env_file:
+      - .env
+      - .env.production
+    depends_on:
+      - memcached
+
+volumes:
+  uploads:
+    driver: rancher-nfs
+    external: true

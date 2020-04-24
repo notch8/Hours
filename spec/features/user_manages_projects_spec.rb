@@ -39,7 +39,7 @@ feature "User manages projects" do
     expect(Project.last.billable).to be(true)
   end
 
-  scenario "edit a none billable project to a billable project" do
+  scenario "edit a billable project to a non billable project" do
     client = create(:client)
     project = create(:project)
     visit edit_project_url(project, subdomain: subdomain)
@@ -101,7 +101,7 @@ feature "User manages projects" do
   end
 
   scenario "will paginate projects" do
-    8.times do
+    25.times do
       create(:project)
     end
 
@@ -123,7 +123,6 @@ feature "User manages projects" do
     end
     expect(current_url).to eq(project_url(project, subdomain: subdomain))
     expect(page).to have_content("TDD")
-    expect(page).to have_content("Cool, markdown!")
   end
 
   scenario "views a single project with more" \

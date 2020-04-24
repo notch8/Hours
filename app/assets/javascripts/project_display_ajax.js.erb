@@ -1,0 +1,5 @@
+$('#hour_project_id').on('change', function(e) {
+    var project_id = $('#hour_project_id').val()
+
+    $.get('/projects/'+project_id+'/selected.js')
+})

@@ -1,0 +1,30 @@
+version: '2.1'
+services:
+  postgres:
+    image: postgres
+    env_file:
+      - .env
+    ports:
+      - "5432"
+  memcached:
+    image: memcached
+    env_file:
+      - .env
+    ports:
+      - "11211"
+  web:
+    image: "${REGISTRY_HOST}${REGISTRY_URI}:${TAG:-master}"
+    environment:
+      SINGLE_TENANT_MODE: true
+    env_file:
+      - .env
+      - .env.development
+      rap.host: ${SITE_URI}
+      rap.le_host: ${SITE_URI}
+      rap.le_test: true
+      io.rancher.container.pull_image: always
+    ports:
+      - "80"
+    depends_on:
+      - postgres
+      - memcached

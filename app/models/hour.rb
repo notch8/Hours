@@ -19,6 +19,7 @@ class Hour < Entry
 
   belongs_to :category
 
+  has_one :timer
   has_many :taggings, inverse_of: :hour
   has_many :tags, through: :taggings
 

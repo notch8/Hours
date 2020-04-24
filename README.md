@@ -1,3 +1,34 @@
+Getting Set Up
+--------------
+1) Install Docker.app
+
+2) `gem install stack_car`
+
+3) `gem install dotenv`
+
+4) You will need to be in the notch8_deploy branch
+
+  `git pull origin notch8_deploy`
+
+5) Ensure that there is a .env file, if not reach out to a team member for a copy of the file
+
+6) create a database.yml file. Then copy and paste the content from database.yml.example into database.yml file
+
+7) `sc up`
+
+8) After running the command `sc up` open a new terminal and run command `sc be rake db:create db:schema:load db:migrate db:seed` while web is running in the terminal with the `sc up` command.
+
+9) After successful seed migration, go to http://testinstance.lvh.me:3000 in your browser. Once there, sign in with email: test@example.com and password: testing123
+
+# Deploy a new release
+
+``` bash
+sc release {staging | production} # creates and pushes the correct tags
+sc deploy {staging | production} # deployes those tags to the server
+```
+
+Release and Deployment are handled by the gitlab ci by default. See ops/deploy-app to deploy from locally, but note all Rancher install pull the currently tagged registry image
+
 Hours
 =====
 

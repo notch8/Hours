@@ -1,23 +1,40 @@
 include TimeSeriesInitializer
 
 class ProjectsController < ApplicationController
+  load_resource only: [:show]
+
   def index
-    @projects = Project.unarchived.by_last_updated.page(params[:page]).per(7)
-    @hours_entry = Hour.new
+    latest_project = current_user.hours.last&.project
+    latest_category = current_user.hours.last&.category
+
+    @projects = Project.unarchived.by_last_updated.page(params[:page]).per(15)
+    @hours_entry = Hour.new(is_client_billable: true, project: latest_project, category: latest_category)
     @mileages_entry = Mileage.new
     @activities = Hour.by_last_created_at.limit(30)
+    @timer = current_user.timers.new(is_client_billable: true, project: latest_project, category: latest_category)
+    @categories = Category.by_name
   end
 
   def show
-    @time_series = time_series_for(resource)
+    @time_series = time_series_for(@project)
+    respond_to do |format|
+      format.html{}
+      format.json do
+        render json: @project
+      end
+    end
   end
 
   def edit
     resource
+    @project.rates.build if @project.rates.empty?
   end
 
   def new
-    @project = Project.new
+    @project = Project.new(billable: true)
+    User.find_each do |user|
+      @project.rates.build(user: user, amount: user.base_amount)
+    end
   end
 
   def create
@@ -37,6 +54,14 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def selected
+      @project = Project.find(params[:id])
+      
+      respond_to do |format|
+          format.js
+      end
+  end
+
   private
 
   def entry_type
@@ -49,6 +74,6 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).
-      permit(:name, :billable, :client_id, :archived, :description, :budget)
+      permit(:name, :billable, :client_id, :archived, :description, :budget, :use_dollars, rates_attributes: [:id, :user_id, :project_id, :amount, :_destroy])
   end
 end

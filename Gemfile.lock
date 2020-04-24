@@ -31,6 +31,8 @@ GEM
       activemodel (= 4.2.10)
       activesupport (= 4.2.10)
       arel (~> 6.0)
+    activerecord-nulldb-adapter (0.3.8)
+      activerecord (>= 2.0.0)
     activesupport (4.2.10)
       i18n (~> 0.7)
       minitest (~> 5.1)
@@ -587,7 +589,7 @@ GEM
       aws-sigv4 (~> 1.0)
     aws-sigv2 (1.0.1)
     aws-sigv4 (1.0.2)
-    bcrypt (3.1.11)
+    bcrypt (3.1.13)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -613,6 +615,7 @@ GEM
       slim (>= 1.3.6, < 4.0)
       terminal-table (~> 1.4)
     builder (3.2.3)
+    cancancan (3.0.1)
     capybara (2.3.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -633,10 +636,10 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
-    concurrent-ruby (1.0.5)
+    concurrent-ruby (1.1.5)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
-    crass (1.0.3)
+    crass (1.0.4)
     dalli (2.7.0)
     database_cleaner (1.3.0)
     debug_inspector (0.0.2)
@@ -645,16 +648,18 @@ GEM
     delayed_job_active_record (4.0.3)
       activerecord (>= 3.0, < 5.0)
       delayed_job (>= 3.0, < 4.1)
-    devise (3.5.10)
+    devise (4.6.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
+      railties (>= 4.1.0, < 6.0)
       responders
-      thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    devise_invitable (1.5.5)
-      actionmailer (>= 3.2.6, < 5)
-      devise (>= 3.2.0)
+    devise-jwt (0.6.0)
+      devise (~> 4.0)
+      warden-jwt_auth (~> 0.4)
+    devise_invitable (1.7.5)
+      actionmailer (>= 4.1.0)
+      devise (>= 4.0.0)
     diff-lcs (1.2.5)
     docile (1.1.5)
     dotenv (0.11.1)
@@ -662,6 +667,16 @@ GEM
     dotenv-deployment (0.0.2)
     dotenv-rails (0.11.1)
       dotenv (= 0.11.1)
+    dry-auto_inject (0.6.1)
+      dry-container (>= 0.3.4)
+    dry-configurable (0.8.3)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 0.4, >= 0.4.7)
+    dry-container (0.7.2)
+      concurrent-ruby (~> 1.0)
+      dry-configurable (~> 0.1, >= 0.1.3)
+    dry-core (0.4.9)
+      concurrent-ruby (~> 1.0)
     email_spec (1.6.0)
       launchy (~> 2.1)
       mail (~> 2.2)
@@ -679,7 +694,7 @@ GEM
     foreman (0.74.0)
       dotenv (~> 0.11.1)
       thor (~> 0.19.1)
-    globalid (0.4.1)
+    globalid (0.4.2)
       activesupport (>= 4.2.0)
     gravatar_image_tag (1.2.0)
     haml (4.0.7)
@@ -694,15 +709,16 @@ GEM
     highline (1.7.8)
     holidays (1.2.0)
     http_accept_language (2.0.1)
-    i18n (0.9.1)
+    i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     jmespath (1.3.1)
     jquery-atwho-rails (1.3.2)
-    jquery-rails (4.0.5)
-      rails-dom-testing (~> 1.0)
+    jquery-rails (4.3.3)
+      rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (2.1.0)
+    jwt (2.2.1)
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -711,10 +727,10 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.2.0)
       launchy (~> 2.2)
-    loofah (2.1.1)
+    loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    mail (2.7.0)
+    mail (2.7.1)
       mini_mime (>= 0.1.1)
     memcachier (0.0.2)
     method_source (0.8.2)
@@ -722,9 +738,9 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
-    mini_mime (1.0.0)
-    mini_portile2 (2.3.0)
-    minitest (5.10.3)
+    mini_mime (1.0.2)
+    mini_portile2 (2.4.0)
+    minitest (5.11.3)
     momentjs-rails (2.7.0)
       railties (>= 3.1)
     multi_json (1.11.2)
@@ -732,8 +748,8 @@ GEM
       bourbon (>= 3.1)
       sass (~> 3.2.19)
     newrelic_rpm (3.9.0.229)
-    nokogiri (1.8.1)
-      mini_portile2 (~> 2.3.0)
+    nokogiri (1.10.4)
+      mini_portile2 (~> 2.4.0)
     normalize-rails (3.0.1)
     orm_adapter (0.5.0)
     paperclip (5.1.0)
@@ -751,7 +767,8 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
-    rack (1.6.8)
+    rack (1.6.11)
+    rack-cors (1.0.3)
     rack-test (0.6.3)
       rack (>= 1.0)
     rack-timeout (0.0.4)
@@ -769,14 +786,16 @@ GEM
     rails-assets-chartjs (1.0.1)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
-    rails-dom-testing (1.0.8)
-      activesupport (>= 4.2.0.beta, < 5.0)
+    rails-dom-testing (1.0.9)
+      activesupport (>= 4.2.0, < 5.0)
       nokogiri (~> 1.6)
       rails-deprecated_sanitizer (>= 1.0.1)
-    rails-html-sanitizer (1.0.3)
-      loofah (~> 2.0)
+    rails-html-sanitizer (1.2.0)
+      loofah (~> 2.2, >= 2.2.2)
     rails-observers (0.1.2)
       activemodel (~> 4.0)
+    rails-ujs (0.1.0)
+      railties (>= 3.1)
     rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
@@ -788,13 +807,13 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.19.0)
-    rake (12.3.0)
+    rake (12.3.3)
     recipient_interceptor (0.1.2)
       mail
     redcarpet (3.4.0)
-    responders (2.4.0)
-      actionpack (>= 4.2.0, < 5.3)
-      railties (>= 4.2.0, < 5.3)
+    responders (2.4.1)
+      actionpack (>= 4.2.0, < 6.0)
+      railties (>= 4.2.0, < 6.0)
     rspec-core (3.5.1)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -863,7 +882,7 @@ GEM
       rails (>= 3.1)
     twitter-text (1.9.2)
       unf (~> 0.1.0)
-    tzinfo (1.2.4)
+    tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uglifier (4.0.2)
       execjs (>= 0.3.0, < 3)
@@ -875,6 +894,15 @@ GEM
       raindrops (~> 0.7)
     warden (1.2.7)
       rack (>= 1.0)
+    warden-jwt_auth (0.4.0)
+      dry-auto_inject (~> 0.6)
+      dry-configurable (~> 0.8)
+      jwt (~> 2.1)
+      warden (~> 1.2)
+    web-console (3.3.0)
+      activemodel (>= 4.2)
+      debug_inspector
+      railties (>= 4.2)
     webmock (1.18.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -885,6 +913,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-nulldb-adapter
   airbrake
   annotate
   apartment (~> 0.26.0)
@@ -895,13 +924,15 @@ DEPENDENCIES
   bitters
   bourbon
   brakeman
-  capybara-webkit (>= 1.0.0)
+  cancancan (~> 3.0)
+  capybara-webkit (>= 1.2.0)
   coffee-rails
   dalli
   database_cleaner
   delayed_job_active_record (= 4.0.3)
-  devise (~> 3.5.2)
-  devise_invitable (~> 1.5.5)
+  devise (~> 4.6.2)
+  devise-jwt (~> 0.6.0)
+  devise_invitable
   dotenv-rails
   email_spec
   email_validator
@@ -915,7 +946,7 @@ DEPENDENCIES
   holidays
   http_accept_language
   jquery-atwho-rails (~> 1.3.2)
-  jquery-rails (~> 4.0)
+  jquery-rails (~> 4.3, >= 4.3.3)
   kaminari
   kgio
   launchy
@@ -930,9 +961,11 @@ DEPENDENCIES
   pikaday-gem (~> 1.2.0.0)
   pry
   pry-rails
+  rack-cors
   rack-timeout
   rails (~> 4.2.10)
   rails-assets-chartjs!
+  rails-ujs (~> 0.1.0)
   rails_12factor
   recipient_interceptor
   redcarpet
@@ -950,10 +983,8 @@ DEPENDENCIES
   twitter-text
   uglifier
   unicorn
+  web-console
   webmock
 
-RUBY VERSION
-   ruby 2.4.2p198
-
 BUNDLED WITH
-   1.16.1
+   1.17.2

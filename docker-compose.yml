@@ -1,36 +1,50 @@
-version: "2"
+version: '2.1'
+services:
+  postgres:
+    image: postgres
+    env_file:
+      - .env
+      - .env.development
+    ports:
+      - "5432"
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+  memcached:
+    image: memcached
+    env_file:
+      - .env
+      - .env.development
+    ports:
+      - "11211"
+
+  base:
+    image: "${REGISTRY_HOST}${REGISTRY_URI}/base:latest"
+    build:
+      context: .
+      dockerfile: Dockerfile.base
+
+  web:
+    build: .
+    image: "${REGISTRY_HOST}${REGISTRY_URI}:${TAG:-master}"
+    env_file:
+      - .env
+      - .env.development
+    environment:
+      VIRTUAL_HOST: hours.docker
+      VIRTUAL_PORT: 80
+    volumes:
+      - .:/home/app/webapp
+    # Keep the stdin open, so we can attach to our app container's process
+    # and do things such as byebug, etc:
+    stdin_open: true
+    # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container:
+    tty: true
+    ports:
+      - "80"
+      - "${DEV_PORT}"
+    depends_on:
+      - postgres
+      - memcached
 
 volumes:
-  db-data:
-    external: false
-
-services:
-  cache:
-    image: memcached:1.4-alpine
-
-  db:
-    environment:
-      POSTGRES_USER:
-      POSTGRES_PASSWORD:
-    image: postgres:9.5
-    volumes:
-      - db-data:/usr/local/pgsql/data
-
-  jobs:
-    env_file: .env
-    build: .
-    volumes:
-      - .:/usr/src/app
-    command: bundle exec rake jobs:work
-    depends_on:
-      - db
-
-  app:
-    env_file: .env
-    build: .
-    volumes:
-      - .:/usr/src/app
-    ports:
-      - "7000:8080"
-    depends_on:
-      - db
+  postgres:

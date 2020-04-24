@@ -1,9 +1,9 @@
+.env.*
 !.keep
 *.DS_Store
 *.swo
 *.swp
 /.bundle
-/.env
 /.foreman
 /coverage/*
 /db/*.sqlite3

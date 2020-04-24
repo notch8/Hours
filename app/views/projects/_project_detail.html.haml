@@ -12,8 +12,18 @@
           = client_title(project.client)
       - if project.budget
         .project-budget
-          = t(:budget_html, budget_left: project.budget_status, budget: project.budget)
-      %p= markdown(project.description) if project.description
+          - if project.use_dollars
+            = t(:budget_dollars_html, budget_left: number_to_currency(project.dollar_budget_status), budget: number_to_currency(project.budget))
+          - else
+            = t(:budget_hours_html, budget_left: project.budget_status, budget: project.budget)
+          %p= markdown(project.description) if project.description
+          - if project.use_dollars
+            .activities-overview
+              %ol.activities
+                = project_presenter.show_budget
+            .amount_bar
+              .amount_graph
+                = project_presenter.show_budget_bar
     %hr/
   .activities-overview
     %ol.activities

@@ -5,7 +5,7 @@
   "logo": "https://raw.githubusercontent.com/DefactoSoftware/Hours/development/app/assets/images/logo.png",
   "keywords": ["hours"],
   "env": {
-    "SINGLE_TENANT_MODE": "true",
+    "SINGLE_TENANT_MODE": "false",
     "SMTP_ADDRESS": "smtp.sendgrid.net",
     "SMTP_DOMAIN": "Insert your domain here",
     "SMTP_PASSWORD": "Your sendgrid password",

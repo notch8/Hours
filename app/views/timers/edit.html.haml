@@ -1,0 +1,75 @@
+.outer
+  .wrapper
+    .projects-overview
+      .new-entry-wrapper
+        %h2= t("entries.index.timer")
+        .projects-tabs-container
+          %ul.accordion-tabs
+            %li.tab-header-and-content-left
+              %a.tab-link{href: "#timer"}= t("entries.index.running_timer")
+              #timer-tab.tab-like-content
+                = simple_form_for @timer do |f|
+                  .log-timer-container
+                    .wrapper
+                      .message
+                        You have a Timer Running
+                      = f.button :submit, value: 'Submit Timer', id: 'log_timer_button'
+                  %hr
+
+                  .edit-header-container
+                    %h4 - OR Edit Timer -
+
+
+                  = f.error_notification
+                  .datepicker-container
+                    .start-container
+                      = f.label "Start"
+                      #starts_at_select
+                      = f.input :starts_at, as: :hidden, input_html: { value: @timer.starts_at.iso8601},  label: false
+                    .middle-container
+                      %h5 -TO-
+                    .end-container
+                      = f.label "End"
+                      #ends_at_select
+                      = f.input :ends_at, as: :hidden, input_html: { value: @timer.ends_at&.iso8601},  label: false
+                  = f.label "Project"
+                  = f.association :project, required: true, collection: @projects, label: false, placeholder: t("entries.index.project")
+                  = f.label "Category"
+                  = f.association :category, required: true, collection: @categories, label: false, placeholder: t("entries.index.category")
+                  .taggable
+                    = f.label "Description"
+                    = f.input :description, input_html: { data: { data: Tag.list }, autocomplete: :off }, label: false, autocomplete: "off", placeholder: t("entries.index.description")
+                    %span.background-highlighter
+                  = f.input :is_client_billable
+                  = f.button :submit, value: 'Submit',  data: { disable_with: t("loader.saving")}, id: 'entry_button'
+
+
+:javascript
+  function setControl(theDate, target, inputTarget){
+    var config = {
+      target: target,
+      timestamp: theDate.getTime(),
+      smartHours: false, 
+      animations: true, 
+    };
+    var startDatepicker = new MtrDatepicker(config);
+    startDatepicker.onChange('all', function() {
+      $(inputTarget).val(startDatepicker.toUTCString())
+    })
+  }
+
+  $(document).ready(function(){
+    var startDate = new Date("#{@timer.starts_at.iso8601}");
+    var endDate = new Date("#{(@timer.ends_at || Time.now).iso8601}");
+    setControl(startDate, 'starts_at_select', '#timer_starts_at')
+    setControl(endDate, 'ends_at_select', '#timer_ends_at')
+
+    $('form.edit_timer').submit(function(){
+      var now = new Date();
+      var endsAt = $('#timer_ends_at')
+      if(!endsAt.val()){
+        endsAt.val(now.toUTCString())
+      }
+    })
+  })
+
