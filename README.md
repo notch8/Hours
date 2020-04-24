@@ -73,6 +73,34 @@ System Dependencies
 - qmake (`brew install qt`) or read extensive instructions [here](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit)
 - memcached (`brew install memcached`, an older version ships with OSX)(optional)
 
+Getting Started
+---------------
+
+Install Docker.app
+
+Make sure PostgreSQL is also installed on your computer 
+
+$git branch pull origin Notch8_deploy
+
+$gem install stack_car 
+
+$gem install dotenv 
+
+Ensure that there is .env file, if not reach out to a team member for the copy of the file
+
+$sc up 
+
+Create a database.yml file. Then copy and paste the content from the database.yml.example into the database.yml file
+
+$sc be rake db:create db:schema:load db:migrate db:seed
+
+After successful seed migration, go to http://testinstance.lvh.me:3000
+
+in rails console, to switch to notch8 tenant
+
+$Apartment::Tenant.switch('hours')
+
+
 Feature Flags
 -------------
 
