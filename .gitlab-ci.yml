@@ -1,8 +1,3 @@
-image: registry.gitlab.com/notch8/scripts:latest
-services:
-  - docker:dind
-  - postgres:latest
-
 stages:
   - build
   - test
@@ -12,13 +7,10 @@ stages:
 
 variables:
   DB_ADAPTER: postgresql  
-  DOCKER_DRIVER: overlay
   POSTGRES_DB: Hours
   POSTGRES_HOST: postgres
   POSTGRES_PASSWORD: password
   POSTGRES_USER: postgres
-  REGISTRY_HOST: registry.gitlab.com
-  REGISTRY_URI: /notch8/hours
   SITE_URI_BASE: hours.notch8.com
   TEST_DB: Hours
 
@@ -26,7 +18,8 @@ variables:
 before_script:
   - touch .env.development
   - touch .env.production
-  - export TAG=$CI_COMMIT_REF_SLUG
+  - export TAG=${CI_COMMIT_SHORT_SHA}
+  - echo $TAG
 
 build:
   stage: build
@@ -35,17 +28,36 @@ build:
     - sc build
     - sc push
   tags:
-    - docker
-  variables:
-    GIT_STRATEGY: fetch
+    - local
+
+base:
+  stage: build
+  script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - sc build -s base
+    - sc push -s base
+  when: manual
+  tags:
+    - local
 
 test:
   stage: test
-  image: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_SLUG
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
   script:
     - cd /home/app/webapp && bundle exec rake db:create db:migrate spec
   tags:
     - docker
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375
+    GIT_STRATEGY: none
+    RAILS_ENV: test
+    PASSENGER_APP_ENV: test
+    DISABLE_DATABASE_ENVIRONMENT_CHECK: 1
+  services:
+    - docker:dind
+    - postgres:latest
+
 
 #review:
 #  stage: review
@@ -88,4 +100,4 @@ production:
     - sc deploy production
   when: manual
   tags:
-    - docker
+    - local

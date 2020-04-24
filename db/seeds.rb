@@ -16,5 +16,6 @@ if Account.where(subdomain: 'testinstance').blank?
    end
 
    u = User.where(email: 'test@example.com').first
-   u.confirm!
+   u.confirm
+   u.save
 end

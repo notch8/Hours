@@ -17,6 +17,8 @@ class ProjectsController < ApplicationController
 
   def show
     @time_series = time_series_for(@project)
+    @hours_entries = @project.hours.by_date.page(params[:hours_pages]).per(20)
+
     respond_to do |format|
       format.html{}
       format.json do
