@@ -14,7 +14,7 @@ gem "bitters"
 gem "pg"
 gem "rack-cors"
 gem "rack-timeout"
-gem "rails", "~> 4.2.10"
+gem "rails", "~> 4.2.11"
 gem "recipient_interceptor"
 gem "sass-rails", "~> 5.0.1"
 gem "simple_form", "~> 3.5.0"
@@ -36,11 +36,11 @@ gem "twitter-text" # hashtag parsing
 gem "jquery-atwho-rails", "~> 1.3.2" # autocomplete
 gem "haml-rails"
 gem "audited-activerecord", "~> 4.0"
-gem "paperclip", "~> 5.1.0"
+gem "paperclip", "~> 6.1.0"
 gem "aws-sdk"
 gem "redcarpet"
 gem "holidays"
-gem "sprockets-rails", "~> 2.3"
+gem "sprockets-rails", "~>3.0"
 gem "brakeman"
 
 source "https://rails-assets.org" do
@@ -67,14 +67,14 @@ group :development, :test do
   gem "dotenv-rails"
   gem "factory_girl_rails"
   gem "pry-rails"
-  gem "rspec-rails", "~> 3.0"
+  gem "rspec-rails", "~> 3.8"
   gem "annotate"
   gem "letter_opener"
   gem "email_spec"
 end
 
 group :test do
-  gem "capybara-webkit", ">= 1.2.0"
+  gem 'capybara', '~> 3.16', '>= 3.16.1'
   gem "database_cleaner"
   gem "launchy"
   gem "shoulda-matchers", "~> 2.7.0"

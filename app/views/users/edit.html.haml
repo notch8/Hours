@@ -15,5 +15,6 @@
         = f.input :current_password, hint: t("registration.hint.current_password"), required: true
       .form-actions
         = f.input :rates
+        = f.input :base_amount
         = f.button :submit, t("registration.update_button"), data: { disable_with: t("loader.saving") }
     = link_to t("back"), :back

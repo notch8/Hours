@@ -1,5 +1,8 @@
 require 'spec_helper'
 
-RSpec.describe Rate, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Rate do
+  describe "associations" do
+    it { should belong_to :user }
+    it { should belong_to :project }
+  end
 end

@@ -19,6 +19,20 @@ feature "User manages projects" do
     expect(page).to have_content(client.name)
   end
 
+  scenario "creates a project with dollars" do
+    ENV["USE_DOLLARS"] = "true"
+    client = create(:client)
+    click_link I18n.t("titles.projects.new")
+
+    fill_in "Name", with: "My new project"
+    fill_in "Description", with: "This is a **very** cool project!"
+    select(client.name, from: "project_client_id")
+    select "Dollars", from: "use_dollars"
+    click_button I18n.t("helpers.submit.project.create")
+    expect(page).to have_content(I18n.t("project_created"))
+    expect(page).to have_content(client.name)
+  end
+
   scenario "creates a project with invalid data" do
     click_link I18n.t("titles.projects.new")
 
@@ -125,6 +139,25 @@ feature "User manages projects" do
     expect(page).to have_content("TDD")
   end
 
+  scenario "views a single project with amounts" do
+    ENV["USE_DOLLARS"] = "true"
+    project = create(:project_with_dollars, description: "Cool, **markdown!**")
+    category = create(:category)
+    create(:hour, project: project, user: user, date: Time.now, category_id: category.id)
+    create(:rate, project: project, user: user, amount: 50.00)
+    entry = project.hours.last
+    entry.update(description: "#TDD")
+
+    visit root_url(subdomain: subdomain)
+    within ".projects-overview" do
+      click_link project.name
+    end
+    expect(current_url).to eq(project_url(project, subdomain: subdomain))
+    expect(page).to have_content(950.0)
+    expect(page).to have_content("TDD")
+    expect(page).to have_content("Cool, markdown!")
+  end
+
   scenario "views a single project with more" \
            "than the maximum shown categories" do
     project = create(:project_with_more_than_maximum_hours)
@@ -153,5 +186,19 @@ feature "User manages projects" do
     expect(page).to have_content(project.name)
     expect(page).to have_content(project.hours.last.category.name)
     expect(page).to have_content("refactoring")
+  end
+
+  scenario "views his own hours with amounts" do
+    ENV["USE_DOLLARS"] = "true"
+    project = create(:project_with_dollars)
+    category = create(:category)
+    create(:hour, project: project, user: user, date: Time.now, category_id: category.id, description: "#refactoring")
+    create(:rate, project: project, user: user, amount: 50.00)
+
+    visit root_url(subdomain: subdomain)
+    click_link I18n.t("navbar.entries")
+
+    expect(page).to have_content("Amount")
+    expect(page).to have_content(50.0)
   end
 end
